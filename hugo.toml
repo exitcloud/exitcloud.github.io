@@ -8,5 +8,8 @@ theme = 'paper'
   twitter = 'exitcloud'
   github = 'exitcloud'
 
+[params.author]
+  name = 'Exit Cloud'
+
 [markup.goldmark.renderer]
   unsafe = true
