@@ -1,0 +1,12 @@
+baseURL = 'https://exitcloud.github.io/'
+languageCode = 'en-us'
+title = 'Exit Cloud'
+theme = 'paper'
+
+[params]
+  description = 'Self-hosted deployment, AI dev workflows, and modern tooling for indie devs.'
+  twitter = 'exitcloud'
+  github = 'exitcloud'
+
+[markup.goldmark.renderer]
+  unsafe = true
