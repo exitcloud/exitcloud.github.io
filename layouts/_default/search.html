@@ -1,0 +1,64 @@
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+
+<input
+  id="search-input"
+  type="text"
+  placeholder="Search posts..."
+  autofocus
+  style="width: 100%; padding: 0.75rem 1rem; font-size: 1rem; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 1.5rem; background: var(--bg); color: inherit;"
+/>
+
+<div id="search-results"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+<script>
+(function() {
+  let fuse;
+  const input = document.getElementById('search-input');
+  const results = document.getElementById('search-results');
+
+  fetch('/index.json')
+    .then(r => r.json())
+    .then(data => {
+      fuse = new Fuse(data, {
+        keys: [
+          { name: 'title', weight: 0.4 },
+          { name: 'tags', weight: 0.3 },
+          { name: 'content', weight: 0.2 },
+          { name: 'summary', weight: 0.1 }
+        ],
+        threshold: 0.3,
+        includeMatches: true,
+        minMatchCharLength: 2
+      });
+    });
+
+  input.addEventListener('input', function() {
+    const query = this.value.trim();
+    if (!query || !fuse) {
+      results.innerHTML = '';
+      return;
+    }
+
+    const matches = fuse.search(query, { limit: 20 });
+    if (matches.length === 0) {
+      results.innerHTML = '<p style="color:#888;">No results found.</p>';
+      return;
+    }
+
+    results.innerHTML = matches.map(m => {
+      const item = m.item;
+      const tags = (item.tags || []).map(t =>
+        '<span style="display:inline-block;padding:0.1rem 0.5rem;margin:0 0.25rem;font-size:0.75rem;border-radius:4px;background:#eee;">' + t + '</span>'
+      ).join('');
+      return '<article style="margin-bottom:1.5rem;">' +
+        '<a href="' + item.permalink + '" style="font-size:1.1rem;font-weight:600;text-decoration:none;">' + item.title + '</a>' +
+        '<div style="font-size:0.85rem;color:#888;margin:0.25rem 0;">' + item.date + ' ' + tags + '</div>' +
+        '<p style="font-size:0.9rem;margin:0.25rem 0 0;">' + (item.summary || '').slice(0, 200) + '</p>' +
+        '</article>';
+    }).join('');
+  });
+})();
+</script>
+{{ end }}

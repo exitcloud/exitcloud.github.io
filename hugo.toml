@@ -25,15 +25,31 @@ theme = 'paper'
   lang = 'en'
   loading = 'lazy'
 
-[[menus.main]]
-  name = 'About'
-  url = '/about/'
-  weight = 10
+[taxonomies]
+  tag = 'tags'
 
 [[menus.main]]
   name = 'Posts'
   url = '/posts/'
+  weight = 10
+
+[[menus.main]]
+  name = 'Tags'
+  url = '/tags/'
   weight = 20
+
+[[menus.main]]
+  name = 'Search'
+  url = '/search/'
+  weight = 30
+
+[[menus.main]]
+  name = 'About'
+  url = '/about/'
+  weight = 40
+
+[outputs]
+  home = ['HTML', 'RSS', 'JSON']
 
 [markup.goldmark.renderer]
   unsafe = true
