@@ -197,7 +197,7 @@ Use a hosted provider if:
 - You send a lot of transactional email (use a dedicated service for this anyway)
 - You value your weekends
 
-I'm running self-hosted email because I enjoy the control and I've accepted the tradeoffs. My personal email goes through Stalwart. My business transactional email goes through Postmark. That split works perfectly.
+I'm running self-hosted email because I enjoy the control and I've accepted the tradeoffs. My personal email goes through Stalwart. My business transactional email goes through [Postmark](https://postmarkapp.com/). That split works perfectly.
 
 If your time is worth more than $5/mo (it is), and you don't have a specific reason to self-host... just use Fastmail. You'll get your weekends back.
 

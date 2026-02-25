@@ -267,7 +267,7 @@ None of this makes you invulnerable. A determined attacker with a zero-day isn't
 1. Automated bots brute-forcing SSH — **solved** by key-only auth + Fail2Ban
 2. Script kiddies scanning for known exploits — **solved** by keeping packages updated + CrowdSec blocklists
 3. Credential stuffing on your app's login page — **solved** by Fail2Ban jails on your app logs + rate limiting
-4. DDoS — honestly, if you're getting DDoSed, put Cloudflare in front. Their free tier handles it fine.
+4. DDoS — honestly, if you're getting DDoSed, put [Cloudflare](https://www.cloudflare.com/) in front. Their free tier handles it fine.
 
 This stack costs $0/mo, takes about 30 minutes to set up, and will stop the vast majority of attacks against your VPS. You don't need a $200/mo WAF subscription. You don't need Cloudflare Pro. You just need some basic hygiene and a couple of battle-tested tools.
 

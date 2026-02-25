@@ -295,8 +295,8 @@ It'll run fine alongside your apps on a 2GB VPS. I wouldn't recommend it for box
 
 Be honest with yourself. If you're storing:
 
-- **> 500GB of data:** Look at Backblaze B2 or Cloudflare R2 directly. Disk is cheap on a VPS but not that cheap.
-- **Media that needs a CDN:** MinIO doesn't have edge nodes. Put Cloudflare in front of it, or use R2 which comes with the CDN built in.
+- **> 500GB of data:** Look at Backblaze B2 or [Cloudflare R2](https://www.cloudflare.com/developer-platform/r2/) directly. Disk is cheap on a VPS but not that cheap.
+- **Media that needs a CDN:** MinIO doesn't have edge nodes. Put [Cloudflare](https://www.cloudflare.com/) in front of it, or use R2 which comes with the CDN built in.
 - **Compliance-sensitive data:** Healthcare, finance, etc. The managed services have certifications you'd spend years getting.
 
 For everything else -- user uploads under a few hundred gigs, app assets, PDF generation, internal tooling -- MinIO on your VPS is the sweet spot. Free, fast, and you own it.

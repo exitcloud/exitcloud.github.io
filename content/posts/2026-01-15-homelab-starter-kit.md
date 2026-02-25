@@ -36,7 +36,7 @@ That ThinkPad from 2018 gathering dust? Wipe it, install Ubuntu Server, done. Fr
 
 Skip used enterprise rack servers. That Dell PowerEdge R720 for $80 on eBay will eat 200+ watts at idle, sound like a jet engine, and your partner/roommates will hate you. Homelabs are fun until your electricity bill doubles and you can hear the fans from two rooms away.
 
-Skip NAS-specific hardware unless you actually need a NAS. A Synology is great for storage, but it's a mediocre Docker host. Get a mini PC and plug in an external drive if you need storage.
+Skip NAS-specific hardware unless you actually need a NAS. A [Synology](https://www.synology.com/) is great for storage, but it's a mediocre Docker host. Get a mini PC and plug in an external drive if you need storage.
 
 ## Software: Proxmox vs bare Docker
 

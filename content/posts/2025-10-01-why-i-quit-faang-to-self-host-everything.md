@@ -49,7 +49,7 @@ The stack is simple:
 - **[Litestream](https://litestream.io/) or pg_dump** — backups to S3-compatible storage (Backblaze B2, $0.005/GB).
 - **A simple deploy script** — `ssh box "cd /app && git pull && docker compose up -d"`. Done.
 
-No Kubernetes. No Terraform (usually). No service mesh. No config management tool that takes three days to learn. Just files on a server.
+No Kubernetes. No [Terraform](https://www.terraform.io/) (usually). No service mesh. No config management tool that takes three days to learn. Just files on a server.
 
 ## The Freedom
 
@@ -69,7 +69,7 @@ Look, I'm not going to pretend this is all upside. There are real trade-offs:
 
 **Security is your job.** You need to keep your OS patched, your firewall configured, your SSH keys rotated. It's not hard — `unattended-upgrades` handles most of it — but you need to actually set it up.
 
-**Some things are genuinely better managed.** Transactional email? Use Postmark or Resend. Don't run your own mail server. DNS? Cloudflare's free tier. There's a line between self-hosting and masochism.
+**Some things are genuinely better managed.** Transactional email? Use [Postmark](https://postmarkapp.com/) or [Resend](https://resend.com/). Don't run your own mail server. DNS? [Cloudflare](https://www.cloudflare.com/)'s free tier. There's a line between self-hosting and masochism.
 
 ## The Math That Matters
 

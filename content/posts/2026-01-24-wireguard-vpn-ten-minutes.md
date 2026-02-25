@@ -10,7 +10,7 @@ tags:
 
 I've run OpenVPN, IPsec, SSH tunnels, and various cursed iptables hacks to access home services remotely. Then I tried [WireGuard](https://www.wireguard.com/) and felt stupid for not switching sooner. It's faster, simpler, and the config file is like 15 lines. Let me show you.
 
-## Why WireGuard over OpenVPN
+## Why WireGuard over [OpenVPN](https://openvpn.net/)
 
 Not going to belabor this. Quick comparison:
 

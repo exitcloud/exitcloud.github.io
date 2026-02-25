@@ -10,7 +10,7 @@ tags:
 
 # The Indie Dev Tech Stack: What I Run in 2026
 
-Every January I do a full audit of my stack. What's running, what's it costing me, what's actually earning its keep. This year I realized my entire production infrastructure — serving real paying customers across three apps — costs me less than a single Datadog license would.
+Every January I do a full audit of my stack. What's running, what's it costing me, what's actually earning its keep. This year I realized my entire production infrastructure — serving real paying customers across three apps — costs me less than a single [Datadog](https://www.datadoghq.com/) license would.
 
 Here's the full rundown. No affiliate links. No "I got this for free in exchange for a review." Just what I actually run, what it costs, and why I picked it.
 
@@ -18,7 +18,7 @@ Here's the full rundown. No affiliate links. No "I got this for free in exchange
 
 I run everything on a single [Hetzner](https://www.hetzner.com/) CPX31: 4 vCPUs, 8GB RAM, 160GB NVMe SSD. Located in Falkenstein, Germany. Ping time from the US East Coast is around 90ms, which is totally fine for my user base.
 
-Why Hetzner? Because they're not trying to nickel-and-dime you on bandwidth. You get 20TB of outbound traffic included. Compare that to AWS where egress costs will make you cry. DigitalOcean and Vultr are fine alternatives, but Hetzner's price-to-performance ratio is hard to beat.
+Why Hetzner? Because they're not trying to nickel-and-dime you on bandwidth. You get 20TB of outbound traffic included. Compare that to AWS where egress costs will make you cry. [DigitalOcean](https://www.digitalocean.com/) and Vultr are fine alternatives, but Hetzner's price-to-performance ratio is hard to beat.
 
 I also have a second smaller box (CX22, $5/mo) that runs monitoring and backups. More on that later.
 

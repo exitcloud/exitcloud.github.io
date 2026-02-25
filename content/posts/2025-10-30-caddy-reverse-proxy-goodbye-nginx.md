@@ -240,7 +240,7 @@ COPY --from=builder /usr/bin/caddy /usr/bin/caddy
 
 This is the one place Caddy requires a bit more config. Wildcard certs (`*.example.com`) can't use the standard HTTP challenge — you need the DNS challenge. That means Caddy needs API access to your DNS provider.
 
-With Cloudflare (and the `caddy-dns/cloudflare` plugin):
+With [Cloudflare](https://www.cloudflare.com/) (and the `caddy-dns/cloudflare` plugin):
 
 ```
 *.example.com {

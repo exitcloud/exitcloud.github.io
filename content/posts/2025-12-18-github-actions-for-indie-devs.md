@@ -55,7 +55,7 @@ jobs:
             pm2 restart myapp
 ```
 
-That's 30 lines. Push to main, tests run, if they pass, it SSH-es into your box and deploys. No Kubernetes. No Terraform. No 800-line YAML. Just ship it.
+That's 30 lines. Push to main, tests run, if they pass, it SSH-es into your box and deploys. No Kubernetes. No [Terraform](https://www.terraform.io/). No 800-line YAML. Just ship it.
 
 ## Docker Build + Push
 

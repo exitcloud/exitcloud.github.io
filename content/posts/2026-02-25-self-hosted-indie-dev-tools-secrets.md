@@ -93,7 +93,7 @@ The key is to keep the AI on a leash. You're the one in control. This is why pro
 
 When you're self-hosting, you're responsible for uptime. The best monitoring is often a cron job that curls your health endpoint. But sometimes you need more.
 
-You don't need to pay for Datadog. You can build a powerful observability stack with open-source tools. The 37signals Upright monitoring tool is a perfect example of this. Under the hood, it's a Rails engine that uses a stack any indie dev can manage: SQLite for the database, Solid Queue for background jobs, and a trio of observability powerhouses: Prometheus, AlertManager, and OpenTelemetry.
+You don't need to pay for [Datadog](https://www.datadoghq.com/). You can build a powerful observability stack with open-source tools. The 37signals Upright monitoring tool is a perfect example of this. Under the hood, it's a Rails engine that uses a stack any indie dev can manage: SQLite for the database, Solid Queue for background jobs, and a trio of observability powerhouses: Prometheus, AlertManager, and OpenTelemetry.
 
 [OpenTelemetry](https://opentelemetry.io/) (or OTel) is the new standard for instrumenting your code. You add its libraries to your app, and it gives you traces, metrics, and logs in a standardized format. The ecosystem is moving fast. They just had the first alpha release of eBPF instrumentation, which is a super-efficient way to get data out of the Linux kernel itself. They're also deprecating the old Zipkin exporter spec because Zipkin can now ingest OTLP directly. It's maturing.
 

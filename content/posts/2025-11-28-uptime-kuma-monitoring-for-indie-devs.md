@@ -10,7 +10,7 @@ tags:
 
 Here's a thing that happened to me: my side project went down for 14 hours and I didn't notice until a user DMed me on Twitter. The app was making ~$400/month at the time. I did the math later -- that outage probably cost me a couple of sign-ups and definitely cost me some trust. All because my [Docker](https://docs.docker.com/compose/) container ran out of memory and I had zero monitoring.
 
-You'd think the fix is "just use Datadog" or "just use Better Uptime." And yeah, those work. They also cost $20-50/month per service once you get past the free tier. For an indie dev running three or four apps on cheap boxes, that adds up fast.
+You'd think the fix is "just use [Datadog](https://www.datadoghq.com/)" or "just use [Better Uptime](https://betteruptime.com/)." And yeah, those work. They also cost $20-50/month per service once you get past the free tier. For an indie dev running three or four apps on cheap boxes, that adds up fast.
 
 Enter [Uptime Kuma](https://github.com/louislam/uptime-kuma). Self-hosted. Open source. Takes about 5 minutes to deploy. Does everything I need.
 
@@ -156,7 +156,7 @@ Telegram notifications hit your phone instantly. This is my primary "wake me up"
 
 ### Email (SMTP)
 
-For the formal record. I use a free Resend account or just my existing SMTP setup:
+For the formal record. I use a free [Resend](https://resend.com/) account or just my existing SMTP setup:
 
 ```
 SMTP Host: smtp.resend.com
@@ -194,7 +194,7 @@ I've used most of these at some point. Here's my honest take:
 | Data retention | Unlimited (your disk) | Plan-dependent | Plan-dependent | Plan-dependent |
 | Cost for 20 monitors | $0 | $20/mo | $$$$ | $7/mo |
 
-UptimeRobot's free tier is actually decent (50 monitors, 5-min intervals), and I used it for years. But the 5-minute check interval means up to 5 minutes before you know something's down. Uptime Kuma lets you go down to 20-second intervals if you want.
+[UptimeRobot](https://uptimerobot.com/)'s free tier is actually decent (50 monitors, 5-min intervals), and I used it for years. But the 5-minute check interval means up to 5 minutes before you know something's down. Uptime Kuma lets you go down to 20-second intervals if you want.
 
 ## Resource Usage
 
