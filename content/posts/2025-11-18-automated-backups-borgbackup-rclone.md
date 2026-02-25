@@ -8,7 +8,7 @@ tags:
   - "self-hosted"
 ---
 
-I lost a database once. SQLite file on a $5 VPS. No backups. It was a side project with maybe 200 users, and I spent a weekend apologizing in a [Discord](https://discord.com/) channel while trying to reconstruct data from browser caches people sent me screenshots of. Never again.
+I lost a database once. [SQLite](https://www.sqlite.org/) file on a $5 VPS. No backups. It was a side project with maybe 200 users, and I spent a weekend apologizing in a [Discord](https://discord.com/) channel while trying to reconstruct data from browser caches people sent me screenshots of. Never again.
 
 That day I went down the backup rabbit hole and came out the other side with a setup that costs me about $1.50/month, runs unattended, and has saved me three times since. Here's the whole thing.
 
@@ -20,7 +20,7 @@ You've probably heard this: 3 copies of your data, on 2 different media types, w
 2. **Local Borg repo** on the same box or an attached volume (copy 2, different format)
 3. **[Rclone](https://rclone.org/) sync** to [Backblaze B2](https://www.backblaze.com/cloud-storage) or [Wasabi](https://wasabi.com/) (copy 3, offsite)
 
-That's it. Three layers. If your VPS provider has a datacenter fire (OVH, anyone?), you've still got B2. If you fat-finger a `DROP TABLE`, [Borg](https://www.borgbackup.org/) has your deduped snapshots going back weeks.
+That's it. Three layers. If your VPS provider has a datacenter fire ([OVH](https://www.ovhcloud.com/), anyone?), you've still got B2. If you fat-finger a `DROP TABLE`, [Borg](https://www.borgbackup.org/) has your deduped snapshots going back weeks.
 
 ## Why BorgBackup
 
@@ -229,7 +229,7 @@ Total: under $2/month for peace of mind. Compare that to managed backup services
 
 ## The Paranoid Extra Step
 
-I also dump my borg passphrase and key export into my password manager (1Password), and I keep a text file in there with the exact restore commands. Future-me, panicking at 2am after a server dies, will appreciate not having to remember the syntax.
+I also dump my borg passphrase and key export into my password manager ([1Password](https://1password.com/)), and I keep a text file in there with the exact restore commands. Future-me, panicking at 2am after a server dies, will appreciate not having to remember the syntax.
 
 ## Cheat Sheet
 

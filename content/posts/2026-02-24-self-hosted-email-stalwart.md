@@ -10,7 +10,7 @@ tags:
 
 # Self-Hosted Email with Stalwart: Is It Worth the Pain?
 
-I'm going to be honest with you. Self-hosting email is the hardest thing on this list. Harder than Kubernetes. Harder than setting up CI/CD from scratch. Not because the software is complex — it's actually gotten remarkably good — but because the email ecosystem is a hostile, gatekept mess that actively punishes newcomers.
+I'm going to be honest with you. Self-hosting email is the hardest thing on this list. Harder than [Kubernetes](https://kubernetes.io/). Harder than setting up CI/CD from scratch. Not because the software is complex — it's actually gotten remarkably good — but because the email ecosystem is a hostile, gatekept mess that actively punishes newcomers.
 
 I've done it. I'm running it right now. And I'm going to tell you exactly what it takes so you can decide if it's worth it for you.
 
@@ -32,7 +32,7 @@ Still here? Alright. Let's do this.
 
 ## Enter Stalwart
 
-[Stalwart](https://stalw.art/) is a relatively new mail server written in Rust. It handles SMTP, IMAP, and JMAP in a single binary. No Postfix + Dovecot + OpenDKIM + Rspamd Frankenstein stack. One binary. One config. One process.
+[Stalwart](https://stalw.art/) is a relatively new mail server written in Rust. It handles SMTP, IMAP, and JMAP in a single binary. No [Postfix](https://www.postfix.org/) + [Dovecot](https://www.dovecot.org/) + [OpenDKIM](http://www.opendkim.org/) + [Rspamd](https://rspamd.com/) Frankenstein stack. One binary. One config. One process.
 
 That alone sold me. The traditional self-hosted email setup requires you to configure and maintain four or five separate daemons that all need to talk to each other correctly. Miss one setting and your mail either doesn't get delivered or gets marked as spam. Stalwart collapses all of that into one thing.
 
@@ -81,7 +81,7 @@ Your VPS's IP address needs a PTR record that points back to your mail hostname.
 49.12.45.101 -> mail.example.com
 ```
 
-Most providers ([Hetzner](https://www.hetzner.com/), DigitalOcean, Vultr) let you set this in the dashboard. If your PTR record doesn't match your mail hostname, Gmail and Outlook will reject your mail outright. Not spam-folder it. *Reject* it.
+Most providers ([Hetzner](https://www.hetzner.com/), [DigitalOcean](https://www.digitalocean.com/), [Vultr](https://www.vultr.com/)) let you set this in the dashboard. If your PTR record doesn't match your mail hostname, [Gmail](https://mail.google.com/) and [Outlook](https://outlook.com/) will reject your mail outright. Not spam-folder it. *Reject* it.
 
 ### MX Record
 
@@ -140,7 +140,7 @@ _mta-sts.example.com.    TXT    "v=STSv1; id=20260224"
 
 Here's the honest truth that nobody in the self-hosted email community likes to talk about: the big providers don't want you sending email from your own server.
 
-Gmail, Outlook, Yahoo — they all maintain internal reputation scores for sending IPs. A brand new VPS IP has zero reputation. Zero reputation means your mail goes to spam. Or gets silently dropped. Or gets deferred for hours.
+Gmail, Outlook, [Yahoo Mail](https://mail.yahoo.com/) — they all maintain internal reputation scores for sending IPs. A brand new VPS IP has zero reputation. Zero reputation means your mail goes to spam. Or gets silently dropped. Or gets deferred for hours.
 
 This is the single biggest challenge of self-hosted email, and there's no quick fix.
 
@@ -175,7 +175,7 @@ For webmail, you'll want a separate client. I use [Roundcube](https://roundcube.
       - stalwart
 ```
 
-Or just use Thunderbird. Or Apple Mail. Or any IMAP client. The whole point is that it's standard protocols.
+Or just use [Thunderbird](https://www.thunderbird.net/). Or [Apple Mail](https://support.apple.com/mail). Or any IMAP client. The whole point is that it's standard protocols.
 
 ## When It Makes Sense
 

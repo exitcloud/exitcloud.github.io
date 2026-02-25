@@ -64,7 +64,7 @@ Let me break these down:
 - **`cache_size = -64000`** — Negative number means kilobytes. 64MB of page cache in RAM. Adjust based on your available memory.
 - **`mmap_size`** — Memory-maps the database file up to 256MB. Reads become memory accesses instead of `read()` syscalls. Huge performance win for read-heavy workloads.
 
-In [Node.js](https://nodejs.org/) with `better-sqlite3`:
+In [Node.js](https://nodejs.org/) with [`better-sqlite3`](https://github.com/WiseLibs/better-sqlite3):
 
 ```javascript
 const db = require('better-sqlite3')('app.db');
@@ -79,7 +79,7 @@ db.pragma('mmap_size = 268435456');
 
 ## Benchmarks (Real Numbers)
 
-I benchmarked my actual app (not a synthetic test) with `wrk`:
+I benchmarked my actual app (not a synthetic test) with [`wrk`](https://github.com/wg/wrk):
 
 ```
 $ wrk -t4 -c50 -d30s https://myapp.example.com/api/stats/abc123
@@ -140,7 +140,7 @@ systemctl enable litestream
 systemctl start litestream
 ```
 
-Now every WAL change is streamed to Backblaze B2 within about a second. If your server catches fire, you can restore:
+Now every WAL change is streamed to [Backblaze B2](https://www.backblaze.com/b2/cloud-storage.html) within about a second. If your server catches fire, you can restore:
 
 ```bash
 litestream restore -o restored.db /home/deploy/app/data/app.db
@@ -167,9 +167,9 @@ Be honest with yourself about whether SQLite fits your use case:
 
 ## 37signals Showed the Way
 
-When the team behind Basecamp and HEY started talking publicly about running SQLite in production for their [Rails](https://rubyonrails.org/) apps, it was a turning point. These aren't hobbyists. They run apps serving millions of users. And they said, yeah, SQLite works.
+When the team behind [Basecamp](https://basecamp.com/) and [HEY](https://www.hey.com/) started talking publicly about running SQLite in production for their [Rails](https://rubyonrails.org/) apps, it was a turning point. These aren't hobbyists. They run apps serving millions of users. And they said, yeah, SQLite works.
 
-Rails 8 shipped with built-in SQLite support for production, including a solid adapter and `solid_cache`/`solid_queue` gems that use SQLite as a backend for caching and background jobs. No [Redis](https://redis.io/) required. The entire [37signals](https://dev.37signals.com/) stack runs on SQLite now for apps like Campfire.
+Rails 8 shipped with built-in SQLite support for production, including a solid adapter and `solid_cache`/`solid_queue` gems that use SQLite as a backend for caching and background jobs. No [Redis](https://redis.io/) required. The entire [37signals](https://dev.37signals.com/) stack runs on SQLite now for apps like [Campfire](https://once.com/campfire).
 
 If it's good enough for DHH's apps, it's probably good enough for your link shortener.
 
@@ -181,11 +181,11 @@ There's no shame in outgrowing SQLite. Here are the actual signals that it's tim
 
 2. **Write contention is real.** If your `busy_timeout` is regularly firing and users are seeing slow responses on writes, you've hit the single-writer limit.
 
-3. **You need advanced Postgres features.** Full `JSONB` operators, `LISTEN/NOTIFY` for real-time features, `pg_trgm` for fuzzy search, `PostGIS` for geospatial — Postgres has an incredible extension ecosystem that SQLite can't match.
+3. **You need advanced Postgres features.** Full `JSONB` operators, `LISTEN/NOTIFY` for real-time features, `pg_trgm` for fuzzy search, [`PostGIS`](https://postgis.net/) for geospatial — Postgres has an incredible extension ecosystem that SQLite can't match.
 
 4. **Your team expects Postgres.** If you hire developers and they're all experienced with Postgres, fighting against that has a cost.
 
-The migration isn't bad. `pgloader` can move a SQLite database to Postgres in minutes. Most ORMs abstract the SQL differences. Plan a weekend, test thoroughly, ship it.
+The migration isn't bad. [`pgloader`](https://pgloader.io/) can move a SQLite database to Postgres in minutes. Most ORMs abstract the SQL differences. Plan a weekend, test thoroughly, ship it.
 
 But for most indie apps? SQLite is plenty. I've been running it in production for over a year now. Zero data loss. Zero corruption. Zero regrets. Just a file on a disk, doing its job quietly.
 

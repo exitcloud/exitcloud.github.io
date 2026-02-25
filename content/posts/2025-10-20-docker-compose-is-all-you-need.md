@@ -8,7 +8,7 @@ tags:
   - "docker"
 ---
 
-Every few months someone on Hacker News posts about their Kubernetes setup for their side project. And every time, a little part of me dies. They've got Helm charts. They've got Argo CD. They've got a GitOps workflow with Flux. For an app that has 200 users.
+Every few months someone on [Hacker News](https://news.ycombinator.com/) posts about their [Kubernetes](https://kubernetes.io/) setup for their side project. And every time, a little part of me dies. They've got [Helm](https://helm.sh/) charts. They've got [Argo CD](https://argoproj.github.io/cd/). They've got a GitOps workflow with [Flux](https://fluxcd.io/). For an app that has 200 users.
 
 Stop it.
 
@@ -33,7 +33,7 @@ That's the whole list. That's all you need.
 
 ## A Real docker-compose.yml
 
-Here's the actual Compose file I use for one of my apps. It's a [Rails](https://rubyonrails.org/) API with [PostgreSQL](https://www.postgresql.org/), [Redis](https://redis.io/), Sidekiq for background jobs, and [Caddy](https://caddyserver.com/) as the reverse proxy. Nothing is redacted except domain names.
+Here's the actual Compose file I use for one of my apps. It's a [Rails](https://rubyonrails.org/) API with [PostgreSQL](https://www.postgresql.org/), [Redis](https://redis.io/), [Sidekiq](https://sidekiq.org/) for background jobs, and [Caddy](https://caddyserver.com/) as the reverse proxy. Nothing is redacted except domain names.
 
 ```yaml
 version: "3.8"
@@ -179,7 +179,7 @@ docker run --rm -v myapp_pgdata:/data -v $(pwd):/backup alpine \
   tar czf /backup/pgdata.tar.gz -C /data .
 ```
 
-I run Postgres dumps via cron every 6 hours and ship them to Backblaze B2 with rclone:
+I run Postgres dumps via cron every 6 hours and ship them to [Backblaze B2](https://www.backblaze.com/b2/cloud-storage.html) with [rclone](https://rclone.org/):
 
 ```bash
 # /etc/cron.d/backup
@@ -255,7 +255,7 @@ Run `docker compose watch` and it's like having a file watcher that triggers reb
 
 Okay, I promised I'd be honest. Here's when Compose stops being enough:
 
-1. **Multiple servers.** Compose runs on one host. If you need your app on three boxes behind a load balancer, Compose can't orchestrate that. (Docker Swarm can, sort of, but it's basically abandoned.)
+1. **Multiple servers.** Compose runs on one host. If you need your app on three boxes behind a load balancer, Compose can't orchestrate that. ([Docker Swarm](https://docs.docker.com/engine/swarm/) can, sort of, but it's basically abandoned.)
 
 2. **Dozens of services.** If you've got 20+ services with complex dependency graphs, Compose gets unwieldy. But also, ask yourself if you really need 20 services.
 

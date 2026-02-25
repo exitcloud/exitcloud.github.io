@@ -8,7 +8,7 @@ tags:
   - "self-hosted"
 ---
 
-Every app eventually needs to store files somewhere. User avatars, PDF exports, CSV uploads, image attachments -- at some point you're dealing with blob storage. The default answer is "just use S3," and honestly, that's not wrong. S3 is great. But it's also another AWS bill, another set of IAM credentials to manage, and another vendor lock-in thread tying your indie app to Jeff Bezos's empire.
+Every app eventually needs to store files somewhere. User avatars, PDF exports, CSV uploads, image attachments -- at some point you're dealing with blob storage. The default answer is "just use S3," and honestly, that's not wrong. S3 is great. But it's also another [AWS](https://aws.amazon.com/) bill, another set of IAM credentials to manage, and another vendor lock-in thread tying your indie app to Jeff Bezos's empire.
 
 [MinIO](https://min.io/) gives you an S3-compatible object store that runs on your own box. Same API, same SDKs, zero cloud bills. I've been running it for two years across three projects and it's been shockingly stable for something that costs me $0/month on top of my existing VPS.
 
@@ -16,7 +16,7 @@ Every app eventually needs to store files somewhere. User avatars, PDF exports, 
 
 Here's the key insight: if your app talks to S3, it can talk to MinIO without changing a single line of code. The AWS SDK just needs a different endpoint URL. Every library, every tool, every backup script that speaks S3 -- it all works with MinIO out of the box.
 
-That means you can develop locally against MinIO, run MinIO in production on your VPS, and if you ever outgrow it, swap in real S3 (or [Backblaze B2](https://www.backblaze.com/cloud-storage), or [Wasabi](https://wasabi.com/), or Cloudflare R2) by changing an environment variable. No vendor lock-in. No migration headaches.
+That means you can develop locally against MinIO, run MinIO in production on your VPS, and if you ever outgrow it, swap in real S3 (or [Backblaze B2](https://www.backblaze.com/cloud-storage), or [Wasabi](https://wasabi.com/), or [Cloudflare R2](https://www.cloudflare.com/developer-platform/r2/)) by changing an environment variable. No vendor lock-in. No migration headaches.
 
 ## Spin It Up
 

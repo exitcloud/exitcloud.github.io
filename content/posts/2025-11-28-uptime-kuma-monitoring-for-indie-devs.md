@@ -8,7 +8,7 @@ tags:
   - "monitoring"
 ---
 
-Here's a thing that happened to me: my side project went down for 14 hours and I didn't notice until a user DMed me on Twitter. The app was making ~$400/month at the time. I did the math later -- that outage probably cost me a couple of sign-ups and definitely cost me some trust. All because my [Docker](https://docs.docker.com/compose/) container ran out of memory and I had zero monitoring.
+Here's a thing that happened to me: my side project went down for 14 hours and I didn't notice until a user DMed me on [Twitter](https://x.com/). The app was making ~$400/month at the time. I did the math later -- that outage probably cost me a couple of sign-ups and definitely cost me some trust. All because my [Docker](https://docs.docker.com/compose/) container ran out of memory and I had zero monitoring.
 
 You'd think the fix is "just use [Datadog](https://www.datadoghq.com/)" or "just use [Better Uptime](https://betteruptime.com/)." And yeah, those work. They also cost $20-50/month per service once you get past the free tier. For an indie dev running three or four apps on cheap boxes, that adds up fast.
 
@@ -108,7 +108,7 @@ Port: 5432 (PostgreSQL)
 Interval: 120 seconds
 ```
 
-I run these for Postgres, Redis, and any other backing services. If your database port stops responding, you want to know before your users do.
+I run these for [Postgres](https://www.postgresql.org/), [Redis](https://redis.io/), and any other backing services. If your database port stops responding, you want to know before your users do.
 
 ### DNS Checks
 

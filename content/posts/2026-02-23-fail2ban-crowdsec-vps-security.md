@@ -10,7 +10,7 @@ tags:
 
 # Fail2Ban + CrowdSec: Securing Your VPS Without a WAF Bill
 
-The first thing that happens when you spin up a new VPS is somebody tries to break into it. I'm not exaggerating. Within minutes of a fresh [Hetzner](https://www.hetzner.com/) or DigitalOcean box getting an IP, you'll see brute-force SSH attempts in your auth log. Bots scan the entire IPv4 space constantly.
+The first thing that happens when you spin up a new VPS is somebody tries to break into it. I'm not exaggerating. Within minutes of a fresh [Hetzner](https://www.hetzner.com/) or [DigitalOcean](https://www.digitalocean.com/) box getting an IP, you'll see brute-force SSH attempts in your auth log. Bots scan the entire IPv4 space constantly.
 
 I once spun up a box and forgot to check on it for a day. When I looked at the logs, there'd been over 40,000 failed SSH login attempts from 200+ different IPs. In 24 hours. On a server that didn't even have a domain pointed at it yet.
 
@@ -187,7 +187,7 @@ Think of it as a neighborhood watch for the internet.
 CrowdSec has two main components:
 
 - **The Engine (Agent):** Parses your logs, detects attack patterns, makes decisions about IPs.
-- **Bouncers:** Enforcement points that actually block the traffic. There are bouncers for iptables/nftables, Nginx, [Traefik](https://traefik.io/), [Caddy](https://caddyserver.com/), Cloudflare, and more.
+- **Bouncers:** Enforcement points that actually block the traffic. There are bouncers for iptables/nftables, [Nginx](https://nginx.org/), [Traefik](https://traefik.io/), [Caddy](https://caddyserver.com/), [Cloudflare](https://www.cloudflare.com/), and more.
 
 ### Install
 

@@ -28,9 +28,9 @@ I sat there staring at my monitor thinking, "I could have SSH'd into a box and c
 
 Around the same time, I started doing napkin math on what our team's infrastructure actually cost. I'm not talking about the whole company — just our corner of it. One mid-sized service with a [PostgreSQL](https://www.postgresql.org/) database, a [Redis](https://redis.io/) cache, some background workers, and a CDN.
 
-The monthly AWS bill for this setup? Roughly **$4,200/month**. And that was *after* someone on the team had done a cost optimization pass.
+The monthly [AWS](https://aws.amazon.com/) bill for this setup? Roughly **$4,200/month**. And that was *after* someone on the team had done a cost optimization pass.
 
-RDS instance: $800. ElastiCache: $400. A couple of ECS Fargate tasks: $600. Load balancer: $200. CloudWatch logs and metrics: $350. Data transfer: who even knows, AWS pricing is designed by sadists. The rest was a grab bag of S3, SNS, SQS, and services I'm not sure anyone was still using.
+[RDS](https://aws.amazon.com/rds/) instance: $800. [ElastiCache](https://aws.amazon.com/elasticache/): $400. A couple of [ECS Fargate](https://aws.amazon.com/fargate/) tasks: $600. Load balancer: $200. [CloudWatch](https://aws.amazon.com/cloudwatch/) logs and metrics: $350. Data transfer: who even knows, AWS pricing is designed by sadists. The rest was a grab bag of [S3](https://aws.amazon.com/s3/), [SNS](https://aws.amazon.com/sns/), [SQS](https://aws.amazon.com/sqs/), and services I'm not sure anyone was still using.
 
 You know what that same workload costs me now? **$20/month.** A [Hetzner](https://www.hetzner.com/) CAX21 (4 ARM cores, 8GB RAM, 80GB disk). Running everything on one box. Postgres, Redis, the app, [Caddy](https://caddyserver.com/) for TLS. All in [Docker Compose](https://docs.docker.com/compose/). And it handles more traffic than that old service ever did.
 
@@ -38,7 +38,7 @@ I'm not exaggerating. I'm not running a toy. I'm running real apps with real use
 
 ## What "Self-Hosting" Actually Means
 
-Let me clear something up: self-hosting doesn't mean you're running servers in your closet. (Though some people do that. Respect.) For me, it means renting cheap VPS boxes from providers like Hetzner, [Vultr](https://www.vultr.com/), or OVH, and managing everything myself.
+Let me clear something up: self-hosting doesn't mean you're running servers in your closet. (Though some people do that. Respect.) For me, it means renting cheap VPS boxes from providers like Hetzner, [Vultr](https://www.vultr.com/), or [OVH](https://www.ovhcloud.com/), and managing everything myself.
 
 The stack is simple:
 
@@ -46,10 +46,10 @@ The stack is simple:
 - **Docker Compose** — one `docker-compose.yml` to rule them all.
 - **Caddy** — reverse proxy with automatic TLS. No more [Let's Encrypt](https://letsencrypt.org/) cron jobs.
 - **[SQLite](https://sqlite.org/) or Postgres** — depends on the app. SQLite for anything single-server.
-- **[Litestream](https://litestream.io/) or pg_dump** — backups to S3-compatible storage (Backblaze B2, $0.005/GB).
+- **[Litestream](https://litestream.io/) or pg_dump** — backups to S3-compatible storage ([Backblaze B2](https://www.backblaze.com/b2/cloud-storage.html), $0.005/GB).
 - **A simple deploy script** — `ssh box "cd /app && git pull && docker compose up -d"`. Done.
 
-No Kubernetes. No [Terraform](https://www.terraform.io/) (usually). No service mesh. No config management tool that takes three days to learn. Just files on a server.
+No [Kubernetes](https://kubernetes.io/). No [Terraform](https://www.terraform.io/) (usually). No service mesh. No config management tool that takes three days to learn. Just files on a server.
 
 ## The Freedom
 
@@ -57,13 +57,13 @@ Here's what nobody tells you about FAANG: you don't own anything. Not your code,
 
 When I own the box, I own the problem. Sounds scary, right? It's actually the opposite. When something breaks at 2 AM, I can SSH in and fix it. I don't need to page someone on the platform team. I don't need to wait for an internal tool to come back online. I `ssh` in, read the logs, fix it, move on.
 
-Last month my app went down because I forgot to set up log rotation and `/var/log` filled the disk. Took me 4 minutes to fix. At my old job, that would've been a P2 incident with a post-mortem document and three follow-up action items tracked in Jira.
+Last month my app went down because I forgot to set up log rotation and `/var/log` filled the disk. Took me 4 minutes to fix. At my old job, that would've been a P2 incident with a post-mortem document and three follow-up action items tracked in [Jira](https://www.atlassian.com/software/jira).
 
 ## The Trade-offs (Being Honest)
 
 Look, I'm not going to pretend this is all upside. There are real trade-offs:
 
-**You're the on-call team.** If the server goes down at 3 AM, that's your problem. I use uptime monitoring (Uptime Kuma, self-hosted obviously) and keep my phone on loud. It hasn't happened often — maybe twice in a year — but it's on you.
+**You're the on-call team.** If the server goes down at 3 AM, that's your problem. I use uptime monitoring ([Uptime Kuma](https://github.com/louislam/uptime-kuma), self-hosted obviously) and keep my phone on loud. It hasn't happened often — maybe twice in a year — but it's on you.
 
 **Scaling is manual.** If you suddenly get a flood of traffic, you can't just auto-scale. You need to either over-provision a bit or have a plan to spin up a bigger box. For most indie apps, this isn't an issue. If you're getting traffic floods, congratulations, you have a good problem.
 

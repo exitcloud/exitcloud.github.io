@@ -8,7 +8,7 @@ tags:
   - "self-hosted"
 ---
 
-I used [Nginx](https://nginx.org/) for ten years. I wrote more `location` blocks than I can count. I debugged `proxy_set_header` issues at 2 AM. I ran certbot cron jobs that silently broke and left me with expired certificates on a Friday afternoon.
+I used [Nginx](https://nginx.org/) for ten years. I wrote more `location` blocks than I can count. I debugged `proxy_set_header` issues at 2 AM. I ran [certbot](https://certbot.eff.org/) cron jobs that silently broke and left me with expired certificates on a Friday afternoon.
 
 Then I switched to [Caddy](https://caddyserver.com/), and I'm never going back.
 
@@ -159,7 +159,7 @@ api.example.com {
 }
 ```
 
-(The rate limiting requires building Caddy with the `caddy-ratelimit` plugin, or using `xcaddy`. More on that in a sec.)
+(The rate limiting requires building Caddy with the `caddy-ratelimit` plugin, or using [`xcaddy`](https://github.com/caddyserver/xcaddy). More on that in a sec.)
 
 Generate a bcrypt hash for basicauth with: `caddy hash-password`
 

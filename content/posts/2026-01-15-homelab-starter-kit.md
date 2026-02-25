@@ -18,7 +18,7 @@ You have three real options. Let me save you some time.
 
 ### Option 1: Mini PC ($150-300) — the right answer for most people
 
-A used or refurbished mini PC is the sweet spot. Something like a [Beelink](https://www.bee-link.com/) SER5 or a Lenovo ThinkCentre Tiny. You get a real x86 CPU, 16-32GB of RAM, an NVMe slot, and it sips power — usually 10-25 watts under load.
+A used or refurbished mini PC is the sweet spot. Something like a [Beelink](https://www.bee-link.com/) SER5 or a [Lenovo ThinkCentre](https://www.lenovo.com/us/en/c/desktops/thinkcentre/) Tiny. You get a real x86 CPU, 16-32GB of RAM, an NVMe slot, and it sips power — usually 10-25 watts under load.
 
 What I run: a Beelink SER5 with a Ryzen 5 5560U, 32GB RAM, 500GB NVMe. Paid $180 refurbished. It sits on a shelf in my closet, pulls about 15 watts, and is dead silent. It runs everything I need.
 
@@ -30,11 +30,11 @@ I have a Pi 4 running Pi-hole. That's it. Everything else runs on the mini PC.
 
 ### Option 3: Old laptop or desktop ($0-50) — the "what's in your closet" option
 
-That ThinkPad from 2018 gathering dust? Wipe it, install Ubuntu Server, done. Free hardware is free hardware. Downsides: laptops are awkward to rack or shelf-mount, fans can be loud, and power draw is usually higher than a mini PC. But if you're starting from zero and don't want to spend money, this works.
+That [ThinkPad](https://www.lenovo.com/us/en/c/laptops/thinkpad/) from 2018 gathering dust? Wipe it, install Ubuntu Server, done. Free hardware is free hardware. Downsides: laptops are awkward to rack or shelf-mount, fans can be loud, and power draw is usually higher than a mini PC. But if you're starting from zero and don't want to spend money, this works.
 
 ### What to skip
 
-Skip used enterprise rack servers. That Dell PowerEdge R720 for $80 on eBay will eat 200+ watts at idle, sound like a jet engine, and your partner/roommates will hate you. Homelabs are fun until your electricity bill doubles and you can hear the fans from two rooms away.
+Skip used enterprise rack servers. That [Dell PowerEdge](https://www.dell.com/en-us/shop/dell-poweredge-servers/sc/servers) R720 for $80 on [eBay](https://www.ebay.com/) will eat 200+ watts at idle, sound like a jet engine, and your partner/roommates will hate you. Homelabs are fun until your electricity bill doubles and you can hear the fans from two rooms away.
 
 Skip NAS-specific hardware unless you actually need a NAS. A [Synology](https://www.synology.com/) is great for storage, but it's a mediocre Docker host. Get a mini PC and plug in an external drive if you need storage.
 
@@ -104,13 +104,13 @@ services:
     restart: unless-stopped
 ```
 
-**2. [Uptime Kuma](https://github.com/louislam/uptime-kuma)** — A beautiful uptime monitoring dashboard. Monitor your own services, external sites, anything with a URL. Alerts via email, Slack, Discord.
+**2. [Uptime Kuma](https://github.com/louislam/uptime-kuma)** — A beautiful uptime monitoring dashboard. Monitor your own services, external sites, anything with a URL. Alerts via email, [Slack](https://slack.com/), [Discord](https://discord.com/).
 
-**3. [Nextcloud](https://nextcloud.com/)** — Replace Google Drive/Dropbox. Calendar, contacts, file sync. It's heavy and sometimes annoying to maintain, but the privacy payoff is real.
+**3. [Nextcloud](https://nextcloud.com/)** — Replace [Google Drive](https://drive.google.com/)/[Dropbox](https://www.dropbox.com/). Calendar, contacts, file sync. It's heavy and sometimes annoying to maintain, but the privacy payoff is real.
 
-**4. Media stack** — [Jellyfin](https://jellyfin.org/) for streaming your media library. Way better than Plex's recent direction. Pair it with *arr apps if you're into automated media management.
+**4. Media stack** — [Jellyfin](https://jellyfin.org/) for streaming your media library. Way better than [Plex](https://www.plex.tv/)'s recent direction. Pair it with *arr apps if you're into automated media management.
 
-**5. [Vaultwarden](https://github.com/dani-garcia/vaultwarden)** — Self-hosted Bitwarden. Your passwords, your server. Compatible with all Bitwarden apps.
+**5. [Vaultwarden](https://github.com/dani-garcia/vaultwarden)** — Self-hosted [Bitwarden](https://bitwarden.com/). Your passwords, your server. Compatible with all Bitwarden apps.
 
 ## Power and noise — the stuff nobody talks about
 
@@ -120,7 +120,7 @@ My mini PC: ~15W idle, ~25W under load. That's about $2-3/month in electricity. 
 
 A used enterprise server: 150-300W idle. That's $20-40/month. And it sounds like a server room because it is a server room.
 
-Measure with a Kill-A-Watt meter ($20 on Amazon). Know what you're spending before you commit to running something 24/7.
+Measure with a [Kill-A-Watt](https://www.p3international.com/products/p4400.html) meter ($20 on [Amazon](https://www.amazon.com/)). Know what you're spending before you commit to running something 24/7.
 
 ## Budget breakdown
 

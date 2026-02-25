@@ -16,7 +16,7 @@ But here's the thing -- most GitHub Actions tutorials are written for teams with
 
 ## The Simplest Useful Workflow
 
-This is what I use for a Node.js app that deploys to a VPS via SSH:
+This is what I use for a [Node.js](https://nodejs.org/) app that deploys to a VPS via SSH:
 
 ```yaml
 # .github/workflows/deploy.yml
@@ -55,7 +55,7 @@ jobs:
             pm2 restart myapp
 ```
 
-That's 30 lines. Push to main, tests run, if they pass, it SSH-es into your box and deploys. No Kubernetes. No [Terraform](https://www.terraform.io/). No 800-line YAML. Just ship it.
+That's 30 lines. Push to main, tests run, if they pass, it SSH-es into your box and deploys. No [Kubernetes](https://kubernetes.io/). No [Terraform](https://www.terraform.io/). No 800-line YAML. Just ship it.
 
 ## Docker Build + Push
 

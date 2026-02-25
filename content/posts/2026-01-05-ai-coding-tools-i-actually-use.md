@@ -48,7 +48,7 @@ Cost: ~$20/month with the Max plan, or use the API and pay per token. For how mu
 
 The autocomplete. The thing that finishes your lines. I've had this since the beta and it's become muscle memory. Tab, tab, tab.
 
-It's best for the boring stuff. Writing a new Express route handler that looks like the last five? [Copilot](https://github.com/features/copilot) has it. Filling out a switch statement? Copilot. Writing the fifteenth test case that follows the same pattern? Copilot.
+It's best for the boring stuff. Writing a new [Express](https://expressjs.com/) route handler that looks like the last five? [Copilot](https://github.com/features/copilot) has it. Filling out a switch statement? Copilot. Writing the fifteenth test case that follows the same pattern? Copilot.
 
 Where it falls apart: anything novel. If you're doing something the training data hasn't seen a thousand times, the suggestions get weird fast. I've seen it confidently autocomplete API calls to endpoints that don't exist.
 
@@ -56,7 +56,7 @@ Cost: $10/month. Worth it just for the autocomplete in test files alone.
 
 ### Cursor
 
-I go back and forth on this one. It's VS Code with AI baked in deeper than Copilot goes. The Cmd+K inline editing is genuinely good — highlight some code, describe what you want changed, and it does a targeted edit.
+I go back and forth on this one. It's [VS Code](https://code.visualstudio.com/) with AI baked in deeper than Copilot goes. The Cmd+K inline editing is genuinely good — highlight some code, describe what you want changed, and it does a targeted edit.
 
 What keeps me using it: the codebase-aware chat. It indexes your project and can answer questions like "where is the rate limiter configured?" without me grep-ing through files. For large codebases this is a real time saver.
 

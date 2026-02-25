@@ -18,7 +18,7 @@ Here's the full rundown. No affiliate links. No "I got this for free in exchange
 
 I run everything on a single [Hetzner](https://www.hetzner.com/) CPX31: 4 vCPUs, 8GB RAM, 160GB NVMe SSD. Located in Falkenstein, Germany. Ping time from the US East Coast is around 90ms, which is totally fine for my user base.
 
-Why Hetzner? Because they're not trying to nickel-and-dime you on bandwidth. You get 20TB of outbound traffic included. Compare that to AWS where egress costs will make you cry. [DigitalOcean](https://www.digitalocean.com/) and Vultr are fine alternatives, but Hetzner's price-to-performance ratio is hard to beat.
+Why Hetzner? Because they're not trying to nickel-and-dime you on bandwidth. You get 20TB of outbound traffic included. Compare that to [AWS](https://aws.amazon.com/) where egress costs will make you cry. [DigitalOcean](https://www.digitalocean.com/) and [Vultr](https://www.vultr.com/) are fine alternatives, but Hetzner's price-to-performance ratio is hard to beat.
 
 I also have a second smaller box (CX22, $5/mo) that runs monitoring and backups. More on that later.
 
@@ -26,7 +26,7 @@ Total compute cost: **$25/mo**.
 
 ## Container Runtime: Docker Compose
 
-No Kubernetes. No Nomad. No Swarm. Just [Docker Compose](https://docs.docker.com/compose/).
+No [Kubernetes](https://kubernetes.io/). No [Nomad](https://www.nomadproject.io/). No [Docker Swarm](https://docs.docker.com/engine/swarm/). Just [Docker Compose](https://docs.docker.com/compose/).
 
 I have a `docker-compose.yml` that defines my entire stack. Every service, every volume, every network. One file. I can read it top to bottom in two minutes and understand exactly what's running on my box.
 
@@ -67,7 +67,7 @@ People will tell you Docker Compose isn't "production-ready." Those people have 
 
 ## Reverse Proxy & TLS: Caddy
 
-[Caddy](https://caddyserver.com/) replaced Nginx for me two years ago and I haven't looked back. Automatic HTTPS with [Let's Encrypt](https://letsencrypt.org/). Zero config for basic reverse proxying. The Caddyfile is so simple it almost feels like cheating:
+[Caddy](https://caddyserver.com/) replaced [Nginx](https://nginx.org/) for me two years ago and I haven't looked back. Automatic HTTPS with [Let's Encrypt](https://letsencrypt.org/). Zero config for basic reverse proxying. The Caddyfile is so simple it almost feels like cheating:
 
 ```
 myapp.example.com {
@@ -93,7 +93,7 @@ If you want something with more routing power, [Traefik](https://traefik.io/) is
 
 "But isn't running your database in Docker risky?" Not if you're doing backups properly. I've been running Postgres in Docker for four years with zero data loss. The container is just a process — the data lives on a persistent volume on the host's NVMe drive.
 
-I run `pg_dump` every 6 hours via cron. The dumps go to a local directory, then get shipped off-box by BorgBackup (more below).
+I run `pg_dump` every 6 hours via cron. The dumps go to a local directory, then get shipped off-box by [BorgBackup](https://www.borgbackup.org/) (more below).
 
 ```bash
 # /etc/cron.d/pg-backup
@@ -104,7 +104,7 @@ Old backups get pruned after 7 days. Simple. Reliable.
 
 ## Cache & Queues: Redis 7
 
-[Redis](https://redis.io/) handles both caching and background job queues (via Sidekiq). It's running in Docker with an append-only file for persistence. Uses about 50MB of RAM for my workload.
+[Redis](https://redis.io/) handles both caching and background job queues (via [Sidekiq](https://sidekiq.org/)). It's running in Docker with an append-only file for persistence. Uses about 50MB of RAM for my workload.
 
 Nothing fancy here. Redis just works. It's one of those tools where the best thing I can say is that I never think about it.
 
@@ -138,7 +138,7 @@ jobs:
 
 ## Monitoring: Uptime Kuma
 
-[Uptime Kuma](https://github.com/louislam/uptime-kuma) runs on my second box and checks all my services every 60 seconds. HTTP checks, TCP port checks, certificate expiry checks. If anything goes down, I get a notification via Ntfy (self-hosted push notifications) and email.
+[Uptime Kuma](https://github.com/louislam/uptime-kuma) runs on my second box and checks all my services every 60 seconds. HTTP checks, TCP port checks, certificate expiry checks. If anything goes down, I get a notification via [Ntfy](https://ntfy.sh/) (self-hosted push notifications) and email.
 
 The dashboard is clean and it was trivially easy to set up:
 
@@ -149,7 +149,7 @@ docker run -d --restart=unless-stopped \
   louislam/uptime-kuma:1
 ```
 
-It replaced a $30/mo Pingdom subscription and does more.
+It replaced a $30/mo [Pingdom](https://www.pingdom.com/) subscription and does more.
 
 ## Backups: BorgBackup + Backblaze B2
 
@@ -162,7 +162,7 @@ This is the part most indie devs skip. Don't be that person.
 - App uploads directory
 - All config files and docker-compose files
 
-Borg repos live locally on the box first, then get synced to [Backblaze B2](https://www.backblaze.com/cloud-storage) using `rclone`. B2 costs $6/TB/month for storage and $0.01/GB for egress. My total B2 bill is about $2/mo.
+Borg repos live locally on the box first, then get synced to [Backblaze B2](https://www.backblaze.com/cloud-storage) using [rclone](https://rclone.org/). B2 costs $6/TB/month for storage and $0.01/GB for egress. My total B2 bill is about $2/mo.
 
 ```bash
 # Nightly backup script
@@ -186,9 +186,9 @@ Test your restores. Seriously. A backup you've never tested is just a wish.
 
 [Plausible](https://plausible.io/) is a privacy-friendly, open-source analytics tool. I self-host it because I don't want to pay $9/mo for their cloud version and I like owning my data.
 
-It's a single Docker Compose stack with a ClickHouse backend. Gives me pageviews, referrers, countries, device types. No cookies, no GDPR banner needed. The script is under 1KB.
+It's a single Docker Compose stack with a [ClickHouse](https://clickhouse.com/) backend. Gives me pageviews, referrers, countries, device types. No cookies, no GDPR banner needed. The script is under 1KB.
 
-Total replacement for Google Analytics, without the creepy tracking.
+Total replacement for [Google Analytics](https://analytics.google.com/), without the creepy tracking.
 
 ## Network Access: Tailscale
 
@@ -227,13 +227,13 @@ Call it $30 with some rounding. That's my entire production infrastructure for t
 
 ## What I'd Change
 
-If I were starting from scratch today, I'd probably look at [Coolify](https://coolify.io/) as an all-in-one platform. It's basically a self-hosted Heroku and it handles deploys, SSL, databases, and monitoring in one package. But I've already got my stack dialed in and I like understanding every piece of it.
+If I were starting from scratch today, I'd probably look at [Coolify](https://coolify.io/) as an all-in-one platform. It's basically a self-hosted [Heroku](https://www.heroku.com/) and it handles deploys, SSL, databases, and monitoring in one package. But I've already got my stack dialed in and I like understanding every piece of it.
 
 I'd also consider moving Postgres off-box to a managed database if my data got critical enough. Hetzner's managed Postgres starts at $15/mo and takes backups off my plate. Not there yet, but it's the obvious next upgrade.
 
 ## The Point
 
-You don't need AWS. You don't need Vercel. You don't need a $500/mo cloud bill to run a profitable app. A cheap VPS, some battle-tested open source tools, and a couple hours of setup gets you a stack that's fast, cheap, and entirely under your control.
+You don't need AWS. You don't need [Vercel](https://vercel.com/). You don't need a $500/mo cloud bill to run a profitable app. A cheap VPS, some battle-tested open source tools, and a couple hours of setup gets you a stack that's fast, cheap, and entirely under your control.
 
 Stop paying the cloud tax. Ship on your own metal.
 

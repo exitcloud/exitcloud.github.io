@@ -50,7 +50,7 @@ That's it. Your app is live with SSL. If you've ever used Heroku, this feels lik
 ### The Good
 
 - Battle-tested. 10+ years of production use. Bugs are rare.
-- Plugin ecosystem is solid: Postgres, MySQL, Redis, Let's Encrypt, cron jobs.
+- Plugin ecosystem is solid: [Postgres](https://www.postgresql.org/), [MySQL](https://www.mysql.com/), [Redis](https://redis.io/), Let's Encrypt, cron jobs.
 - Tiny footprint. Dokku itself barely uses resources.
 - `git push` deploys are satisfying every single time.
 
@@ -105,7 +105,7 @@ caprover deploy
 # - One-click apps (marketplace)
 ```
 
-The one-click apps marketplace is nice. Need Postgres? Ghost? n8n? Plausible Analytics? Click, fill in a few env vars, deploy. Feels like a self-hosted app store.
+The one-click apps marketplace is nice. Need Postgres? [Ghost](https://ghost.org/)? [n8n](https://n8n.io/)? [Plausible Analytics](https://plausible.io/)? Click, fill in a few env vars, deploy. Feels like a self-hosted app store.
 
 ### The Good
 
@@ -132,16 +132,16 @@ Coolify (v4) is what happens when someone looks at Vercel's UI and says "I want 
 curl -fsSL https://cdn.coollabs.io/coolify/install.sh | bash
 ```
 
-One command. Seriously. It sets up Docker, the Coolify stack, and a reverse proxy (Traefik). You get a web UI at `http://your-ip:8000`.
+One command. Seriously. It sets up Docker, the Coolify stack, and a reverse proxy ([Traefik](https://traefik.io/)). You get a web UI at `http://your-ip:8000`.
 
 ### What Makes It Different
 
 Coolify feels more like a modern cloud platform than a traditional PaaS. It supports:
 
-- **Git-based deploys** with auto-deploy on push (GitHub/GitLab/Bitbucket webhooks)
+- **Git-based deploys** with auto-deploy on push ([GitHub](https://github.com/)/[GitLab](https://about.gitlab.com/)/[Bitbucket](https://bitbucket.org/) webhooks)
 - **Docker Compose deploys** -- paste your compose file, done
-- **Nixpacks** for buildpack-style builds (faster than Heroku buildpacks)
-- **Databases as first-class resources** -- spin up Postgres, MySQL, Redis, MongoDB, etc. with a click
+- **[Nixpacks](https://nixpacks.com/)** for buildpack-style builds (faster than Heroku buildpacks)
+- **Databases as first-class resources** -- spin up Postgres, MySQL, Redis, [MongoDB](https://www.mongodb.com/), etc. with a click
 - **Server management** -- manage multiple remote servers from one Coolify instance
 - **Built-in backups** for databases
 - **Preview deployments** for pull requests

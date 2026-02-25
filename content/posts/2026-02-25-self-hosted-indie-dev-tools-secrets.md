@@ -27,11 +27,11 @@ Look at [37signals](https://dev.37signals.com/). They're not a tiny indie shop, 
 
 How'd they do it? Not with some managed cloud migration service that costs six figures. They did it with their own tools, on their own hardware. They bought a [Pure Storage FlashBlade](https://www.purestorage.com/products/file-and-object/flashblade.html) box—basically a super-fast, on-prem S3-compatible system—and hooked it up to a 100 gigabit network connection dedicated to just copying data. This wasn't a weekend project; it took 90 days, but they pulled it off with zero downtime.
 
-Performance is another big win. When you control the metal, you control the network. After 37signals moved their Docker registry to an on-premise [Harbor](https://goharbor.io/) instance, they cut deployment times by up to 25 seconds. For apps like HEY and Basecamp, that's a huge deal. Twenty-five seconds might not sound like much, but when you're deploying multiple times a day, it adds up. It's the difference between staying in the flow and getting distracted by a slow progress bar. That's a real, tangible improvement to your workflow, just from bringing one piece of infrastructure in-house.
+Performance is another big win. When you control the metal, you control the network. After 37signals moved their Docker registry to an on-premise [Harbor](https://goharbor.io/) instance, they cut deployment times by up to 25 seconds. For apps like [HEY](https://www.hey.com/) and [Basecamp](https://basecamp.com/), that's a huge deal. Twenty-five seconds might not sound like much, but when you're deploying multiple times a day, it adds up. It's the difference between staying in the flow and getting distracted by a slow progress bar. That's a real, tangible improvement to your workflow, just from bringing one piece of infrastructure in-house.
 
 ### DIY Docker Registry: Harbor on a Budget VPS
 
-So you're convinced. You want to run your own stuff. Where do you start? A private Docker registry is a great first step. Every time you `docker push`, you're sending your image to Docker Hub, or ECR, or whatever. That can be slow, especially if your server is on the other side of the world from their registry. A **VPS** can offer a cost-effective solution.
+So you're convinced. You want to run your own stuff. Where do you start? A private Docker registry is a great first step. Every time you `docker push`, you're sending your image to [Docker Hub](https://hub.docker.com/), or [ECR](https://aws.amazon.com/ecr/), or whatever. That can be slow, especially if your server is on the other side of the world from their registry. A **VPS** can offer a cost-effective solution.
 
 Let's spin up our own.
 
@@ -42,9 +42,9 @@ Harbor's **deployment** is optimized for Kubernetes, sure, but it also ships wit
 Here's the basic play:
 
 1.  Grab a VPS. A simple box with 4 cores and 8GB of RAM is more than enough to start.
-2.  Install Docker and Docker Compose.
+2.  Install Docker and [Docker Compose](https://docs.docker.com/compose/).
 3.  Download the Harbor offline installer.
-4.  Tweak the `harbor.yml` config file. You'll need to set your hostname and generate some certs (Let's Encrypt is your friend here).
+4.  Tweak the `harbor.yml` config file. You'll need to set your hostname and generate some certs ([Let's Encrypt](https://letsencrypt.org/) is your friend here).
 5.  Run `./install.sh`.
 
 That's it. You have a private, secure Docker registry.
@@ -63,7 +63,7 @@ You don't need Kubernetes. You need [**Kamal**](https://kamal-deploy.org/).
 
 Kamal is the deploy tool [37signals](https://37signals.com/) built and open-sourced. It's what they use to deploy all their apps. It takes a container-based approach but without the ridiculous complexity. You give it a list of servers, and it uses standard Docker commands over SSH to get your app running. Simple. Fast. Effective.
 
-They even use it to run their new synthetic monitoring system, [Upright](https://github.com/basecamp/upright). Upright is a Rails engine they open-sourced that lets you run checks from all over the world to make sure your app is, well, upright. It supports [Playwright](https://playwright.dev/) for full browser testing, simple HTTP pings, and even SMTP and Traceroute probes.
+They even use it to run their new synthetic monitoring system, [Upright](https://github.com/basecamp/upright). Upright is a [Rails](https://rubyonrails.org/) engine they open-sourced that lets you run checks from all over the world to make sure your app is, well, upright. It supports [Playwright](https://playwright.dev/) for full browser testing, simple HTTP pings, and even SMTP and Traceroute probes.
 
 And the best part? They deploy Upright's probe nodes using Kamal to cheap VPS instances around the globe. A minimal setup with two monitoring locations on [Hetzner](https://www.hetzner.com/) costs under $20 a month. That's a worldwide monitoring system for the price of a few fancy coffees.
 
@@ -93,9 +93,9 @@ The key is to keep the AI on a leash. You're the one in control. This is why pro
 
 When you're self-hosting, you're responsible for uptime. The best monitoring is often a cron job that curls your health endpoint. But sometimes you need more.
 
-You don't need to pay for [Datadog](https://www.datadoghq.com/). You can build a powerful observability stack with open-source tools. The 37signals Upright monitoring tool is a perfect example of this. Under the hood, it's a Rails engine that uses a stack any indie dev can manage: SQLite for the database, Solid Queue for background jobs, and a trio of observability powerhouses: Prometheus, AlertManager, and OpenTelemetry.
+You don't need to pay for [Datadog](https://www.datadoghq.com/). You can build a powerful observability stack with open-source tools. The 37signals Upright monitoring tool is a perfect example of this. Under the hood, it's a Rails engine that uses a stack any indie dev can manage: [SQLite](https://www.sqlite.org/) for the database, [Solid Queue](https://github.com/rails/solid_queue) for background jobs, and a trio of observability powerhouses: Prometheus, AlertManager, and OpenTelemetry.
 
-[OpenTelemetry](https://opentelemetry.io/) (or OTel) is the new standard for instrumenting your code. You add its libraries to your app, and it gives you traces, metrics, and logs in a standardized format. The ecosystem is moving fast. They just had the first alpha release of eBPF instrumentation, which is a super-efficient way to get data out of the Linux kernel itself. They're also deprecating the old Zipkin exporter spec because Zipkin can now ingest OTLP directly. It's maturing.
+[OpenTelemetry](https://opentelemetry.io/) (or OTel) is the new standard for instrumenting your code. You add its libraries to your app, and it gives you traces, metrics, and logs in a standardized format. The ecosystem is moving fast. They just had the first alpha release of eBPF instrumentation, which is a super-efficient way to get data out of the Linux kernel itself. They're also deprecating the old [Zipkin](https://zipkin.io/) exporter spec because Zipkin can now ingest OTLP directly. It's maturing.
 
 Once your app is emitting OTel data, you need somewhere to send it. That's where [Prometheus](https://prometheus.io/) comes in. It's a time-series database that scrapes metrics from your app. You pair it with [AlertManager](https://prometheus.io/docs/alerting/latest/alertmanager/) to fire off alerts when things go wrong and [Grafana](https://grafana.com/) to build pretty dashboards.
 

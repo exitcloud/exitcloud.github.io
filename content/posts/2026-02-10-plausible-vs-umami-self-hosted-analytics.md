@@ -8,7 +8,7 @@ tags:
   - "analytics"
 ---
 
-I ripped Google Analytics off all my sites in 2024. Not because of some grand privacy stance — though that's a nice bonus — but because GA4 is genuinely terrible to use. The UI is a maze. Simple questions like "how many people visited my site today" require clicking through five menus. And the tracking script is 45KB and slows down page loads.
+I ripped [Google Analytics](https://analytics.google.com/) off all my sites in 2024. Not because of some grand privacy stance — though that's a nice bonus — but because GA4 is genuinely terrible to use. The UI is a maze. Simple questions like "how many people visited my site today" require clicking through five menus. And the tracking script is 45KB and slows down page loads.
 
 So I went looking for something simpler. Ended up trying both [Plausible](https://plausible.io/) and [Umami](https://umami.is/), running them self-hosted on my own box. I've been using both for over a year now. Here's the real comparison.
 
@@ -25,7 +25,7 @@ Now let me actually back that up.
 
 ## Plausible: the polished one
 
-Plausible started as a paid SaaS and later released a Community Edition (CE) you can self-host for free. The CE has most features of the paid version. It's written in Elixir with a ClickHouse backend for analytics storage.
+Plausible started as a paid SaaS and later released a Community Edition (CE) you can self-host for free. The CE has most features of the paid version. It's written in [Elixir](https://elixir-lang.org/) with a [ClickHouse](https://clickhouse.com/) backend for analytics storage.
 
 ### Deploying Plausible
 
@@ -105,7 +105,7 @@ Three containers: the Plausible app, Postgres for config/users, and ClickHouse f
 
 ## Umami: the lightweight one
 
-Umami takes a different approach. It's a Next.js app backed by either [Postgres](https://www.postgresql.org/) or MySQL. One app container, one database. That's it.
+Umami takes a different approach. It's a [Next.js](https://nextjs.org/) app backed by either [Postgres](https://www.postgresql.org/) or [MySQL](https://www.mysql.com/). One app container, one database. That's it.
 
 ### Deploying Umami
 

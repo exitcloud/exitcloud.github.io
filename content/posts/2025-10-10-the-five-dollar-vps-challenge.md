@@ -16,7 +16,7 @@ Can you actually do it? Yeah. You can. Let me show you.
 
 I grabbed a **[Hetzner](https://www.hetzner.com/) CAX11** — their smallest ARM box. Here's what $3.90/month gets you:
 
-- 2 ARM cores (Ampere Altra)
+- 2 ARM cores ([Ampere Altra](https://amperecomputing.com/))
 - 4 GB RAM
 - 40 GB NVMe disk
 - 20 TB transfer
@@ -61,7 +61,7 @@ That's your base. Took maybe 10 minutes. Now let's put an app on it.
 
 I'm going to deploy a small SaaS API — a link shortener with user accounts, rate limiting, and analytics. It's a real app that I actually run. Here's the stack:
 
-- **[Node.js](https://nodejs.org/) 20** (could be Bun, could be [Rails](https://rubyonrails.org/), whatever you ship with)
+- **[Node.js](https://nodejs.org/) 20** (could be [Bun](https://bun.sh/), could be [Rails](https://rubyonrails.org/), whatever you ship with)
 - **[SQLite](https://sqlite.org/)** with WAL mode (more on this in a future post)
 - **[Caddy](https://caddyserver.com/)** for reverse proxy + auto TLS
 - **[systemd](https://systemd.io/)** to keep everything running
@@ -129,11 +129,11 @@ systemctl status linkshort
 curl http://localhost:3000/health
 ```
 
-That `Restart=always` with `RestartSec=5` means if your app crashes, systemd brings it back up in 5 seconds. No process manager needed. No pm2. Systemd already does this.
+That `Restart=always` with `RestartSec=5` means if your app crashes, systemd brings it back up in 5 seconds. No process manager needed. No [pm2](https://pm2.keymetrics.io/). Systemd already does this.
 
 ## Caddy for TLS
 
-Caddy is a single binary that gives you automatic HTTPS. No certbot cron jobs. No [Nginx](https://nginx.org/) config files that look like they were written by a Perl programmer having a bad day.
+Caddy is a single binary that gives you automatic HTTPS. No [certbot](https://certbot.eff.org/) cron jobs. No [Nginx](https://nginx.org/) config files that look like they were written by a Perl programmer having a bad day.
 
 ```bash
 # Install Caddy
@@ -236,7 +236,7 @@ Real talk: when do you need to upgrade?
 
 - **RAM is the first bottleneck.** If your app starts swapping, bump to the next tier. On Hetzner that's the CAX21 at $8.50 for 8GB. Still absurdly cheap.
 - **CPU usually isn't the problem** for web apps. Most time is spent waiting on I/O.
-- **Disk fills up** if you're storing uploads or have a growing database. Add a volume or move uploads to object storage (Backblaze B2 or Hetzner's object storage).
+- **Disk fills up** if you're storing uploads or have a growing database. Add a volume or move uploads to object storage ([Backblaze B2](https://www.backblaze.com/b2/cloud-storage.html) or Hetzner's object storage).
 - **If you need multiple servers** — for redundancy or because you're actually getting serious traffic — that's when you graduate to [Docker Compose](https://docs.docker.com/compose/) on a bigger box, or maybe two boxes with a load balancer. But we're talking tens of thousands of requests per minute before you're anywhere near that.
 
 Most indie apps will never outgrow a $5-10 box. That's just the reality. We've been sold a narrative that you need complex infrastructure from day one. You don't. Ship on the small box. Upgrade when the metrics tell you to, not when your anxiety tells you to.

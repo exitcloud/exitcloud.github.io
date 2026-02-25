@@ -10,11 +10,11 @@ tags:
 
 # Kamal 2: Zero-Downtime Deploys Without the Complexity
 
-I spent three years at a FAANG company watching a team of six SREs manage a Kubernetes cluster so we could deploy a Rails app. Six people. Full-time. Just to keep the deploy pipeline alive.
+I spent three years at a FAANG company watching a team of six SREs manage a Kubernetes cluster so we could deploy a [Rails](https://rubyonrails.org/) app. Six people. Full-time. Just to keep the deploy pipeline alive.
 
 Then I discovered Kamal, and I felt like an idiot for not leaving sooner.
 
-[Kamal](https://kamal-deploy.org/) is the deploy tool built by [37signals](https://dev.37signals.com/) — the folks behind Basecamp and HEY. It's what they use to ship their own apps. Version 2 landed with some serious improvements, and it's become the backbone of how I deploy everything. Zero-downtime deploys to bare metal or cheap VPSes, no orchestrator required.
+[Kamal](https://kamal-deploy.org/) is the deploy tool built by [37signals](https://dev.37signals.com/) — the folks behind [Basecamp](https://basecamp.com/) and [HEY](https://www.hey.com/). It's what they use to ship their own apps. Version 2 landed with some serious improvements, and it's become the backbone of how I deploy everything. Zero-downtime deploys to bare metal or cheap VPSes, no orchestrator required.
 
 Let me walk you through the whole thing.
 
@@ -24,7 +24,7 @@ Kamal is a deploy tool that uses [Docker](https://docs.docker.com/compose/) and 
 
 Under the hood, it uses [Traefik](https://traefik.io/) as a reverse proxy to handle the blue-green switchover. When you deploy, Kamal boots your new container, waits for it to pass health checks, then tells Traefik to route traffic to the new container. Only after the new container is healthy does it tear down the old one. No dropped requests.
 
-Compare that to [Capistrano](https://capistranorb.com/), which was the old standard. Cap was fine for deploying Ruby apps directly onto servers, but it couldn't do zero-downtime without a bunch of extra gymnastics. And Kubernetes? K8s can absolutely do zero-downtime deploys, but the operational overhead is absurd for a small team. You're paying the complexity tax on every single thing you do.
+Compare that to [Capistrano](https://capistranorb.com/), which was the old standard. Cap was fine for deploying Ruby apps directly onto servers, but it couldn't do zero-downtime without a bunch of extra gymnastics. And [Kubernetes](https://kubernetes.io/)? K8s can absolutely do zero-downtime deploys, but the operational overhead is absurd for a small team. You're paying the complexity tax on every single thing you do.
 
 Kamal sits right in the sweet spot: container-based deploys with zero-downtime, but without the yak shaving.
 
@@ -117,7 +117,7 @@ accessories:
       - data:/data
 ```
 
-A few things to notice. The `servers` section separates web and worker roles. Kamal only puts Traefik in front of web servers — your workers just run their command directly. The `accessories` section manages your database and Redis. These aren't redeployed every time you ship code; they're long-running services that Kamal can set up and manage for you.
+A few things to notice. The `servers` section separates web and worker roles. Kamal only puts Traefik in front of web servers — your workers just run their command directly. The `accessories` section manages your database and [Redis](https://redis.io/). These aren't redeployed every time you ship code; they're long-running services that Kamal can set up and manage for you.
 
 The `proxy` section is new in Kamal 2. It replaced the old `traefik` config block with something cleaner. You define your health check path, and Kamal handles the rest.
 
@@ -134,7 +134,7 @@ REDIS_URL=redis://49.12.45.110:6379/0
 POSTGRES_PASSWORD=secretpass
 ```
 
-You can also pull secrets from 1Password, LastPass, or AWS SSM. But honestly? A `.env` file on your local machine works fine for most indie setups. Just make sure it's in your `.gitignore`.
+You can also pull secrets from [1Password](https://1password.com/), [LastPass](https://www.lastpass.com/), or [AWS SSM](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html). But honestly? A `.env` file on your local machine works fine for most indie setups. Just make sure it's in your `.gitignore`.
 
 ## The Deploy Cycle
 
