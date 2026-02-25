@@ -8,11 +8,11 @@ tags:
   - "monitoring"
 ---
 
-Here's a thing that happened to me: my side project went down for 14 hours and I didn't notice until a user DMed me on Twitter. The app was making ~$400/month at the time. I did the math later -- that outage probably cost me a couple of sign-ups and definitely cost me some trust. All because my Docker container ran out of memory and I had zero monitoring.
+Here's a thing that happened to me: my side project went down for 14 hours and I didn't notice until a user DMed me on Twitter. The app was making ~$400/month at the time. I did the math later -- that outage probably cost me a couple of sign-ups and definitely cost me some trust. All because my [Docker](https://docs.docker.com/compose/) container ran out of memory and I had zero monitoring.
 
 You'd think the fix is "just use Datadog" or "just use Better Uptime." And yeah, those work. They also cost $20-50/month per service once you get past the free tier. For an indie dev running three or four apps on cheap boxes, that adds up fast.
 
-Enter Uptime Kuma. Self-hosted. Open source. Takes about 5 minutes to deploy. Does everything I need.
+Enter [Uptime Kuma](https://github.com/louislam/uptime-kuma). Self-hosted. Open source. Takes about 5 minutes to deploy. Does everything I need.
 
 ## Spin It Up
 
@@ -27,7 +27,7 @@ docker run -d \
   louislam/uptime-kuma:1
 ```
 
-Or if you're a docker-compose person (you should be):
+Or if you're a [docker-compose](https://docs.docker.com/compose/) person (you should be):
 
 ```yaml
 # docker-compose.yml
@@ -54,7 +54,7 @@ Hit `http://your-server:3001`, create an admin account, and you're in. The whole
 
 ## Putting It Behind a Reverse Proxy
 
-You probably want this on a real domain with HTTPS. Here's a minimal nginx config:
+You probably want this on a real domain with HTTPS. Here's a minimal [nginx](https://nginx.org/) config:
 
 ```nginx
 server {
@@ -144,11 +144,11 @@ Uptime Kuma supports something like 90+ notification services. Here are the ones
 
 ### Discord Webhook
 
-Create a webhook in your Discord server (Server Settings > Integrations > Webhooks). Paste the URL into Uptime Kuma. Done. I have a `#alerts` channel in my project's Discord that gets pinged on any status change.
+Create a webhook in your [Discord](https://discord.com/) server (Server Settings > Integrations > Webhooks). Paste the URL into Uptime Kuma. Done. I have a `#alerts` channel in my project's Discord that gets pinged on any status change.
 
 ### Telegram Bot
 
-1. Message `@BotFather` on Telegram, create a bot, get the token
+1. Message `@BotFather` on [Telegram](https://telegram.org/), create a bot, get the token
 2. Start a chat with your bot, get your chat ID (message `@userinfobot`)
 3. Plug both into Uptime Kuma
 

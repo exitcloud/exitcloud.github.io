@@ -10,7 +10,7 @@ tags:
 
 # Fail2Ban + CrowdSec: Securing Your VPS Without a WAF Bill
 
-The first thing that happens when you spin up a new VPS is somebody tries to break into it. I'm not exaggerating. Within minutes of a fresh Hetzner or DigitalOcean box getting an IP, you'll see brute-force SSH attempts in your auth log. Bots scan the entire IPv4 space constantly.
+The first thing that happens when you spin up a new VPS is somebody tries to break into it. I'm not exaggerating. Within minutes of a fresh [Hetzner](https://www.hetzner.com/) or DigitalOcean box getting an IP, you'll see brute-force SSH attempts in your auth log. Bots scan the entire IPv4 space constantly.
 
 I once spun up a box and forgot to check on it for a day. When I looked at the logs, there'd been over 40,000 failed SSH login attempts from 200+ different IPs. In 24 hours. On a server that didn't even have a domain pointed at it yet.
 
@@ -100,7 +100,7 @@ sudo ufw status verbose
 
 That's your baseline. Everything is denied by default except the ports you explicitly opened. If you add a new service later, you add a rule. If you remove a service, you remove the rule.
 
-One footgun to watch out for: if you're running Docker, it manipulates iptables directly and can bypass UFW rules. This is a well-known issue. The fix is to configure Docker to use `iptables: false` in `/etc/docker/daemon.json` and manage port exposure through UFW instead, or use the `DOCKER-USER` chain. Look into it if you're running public-facing containers.
+One footgun to watch out for: if you're running [Docker](https://docs.docker.com/compose/), it manipulates iptables directly and can bypass UFW rules. This is a well-known issue. The fix is to configure Docker to use `iptables: false` in `/etc/docker/daemon.json` and manage port exposure through UFW instead, or use the `DOCKER-USER` chain. Look into it if you're running public-facing containers.
 
 ## Step 3: Fail2Ban — The Battle-Tested Bouncer
 
@@ -187,7 +187,7 @@ Think of it as a neighborhood watch for the internet.
 CrowdSec has two main components:
 
 - **The Engine (Agent):** Parses your logs, detects attack patterns, makes decisions about IPs.
-- **Bouncers:** Enforcement points that actually block the traffic. There are bouncers for iptables/nftables, Nginx, Traefik, Caddy, Cloudflare, and more.
+- **Bouncers:** Enforcement points that actually block the traffic. There are bouncers for iptables/nftables, Nginx, [Traefik](https://traefik.io/), [Caddy](https://caddyserver.com/), Cloudflare, and more.
 
 ### Install
 
@@ -250,7 +250,7 @@ Here's the checklist I run through every time I set up a new box. Print it out. 
 - [ ] CrowdSec installed with community blocklists
 - [ ] Automatic security updates enabled (`unattended-upgrades`)
 - [ ] Docker configured to not bypass UFW
-- [ ] Tailscale for internal access instead of exposing admin ports
+- [ ] [Tailscale](https://tailscale.com/) for internal access instead of exposing admin ports
 - [ ] Backups running and tested (you *do* have backups, right?)
 - [ ] Log rotation configured so logs don't fill the disk
 

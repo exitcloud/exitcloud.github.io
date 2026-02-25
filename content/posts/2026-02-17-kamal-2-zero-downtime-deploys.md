@@ -14,17 +14,17 @@ I spent three years at a FAANG company watching a team of six SREs manage a Kube
 
 Then I discovered Kamal, and I felt like an idiot for not leaving sooner.
 
-[Kamal](https://kamal-deploy.org/) is the deploy tool built by 37signals — the folks behind Basecamp and HEY. It's what they use to ship their own apps. Version 2 landed with some serious improvements, and it's become the backbone of how I deploy everything. Zero-downtime deploys to bare metal or cheap VPSes, no orchestrator required.
+[Kamal](https://kamal-deploy.org/) is the deploy tool built by [37signals](https://dev.37signals.com/) — the folks behind Basecamp and HEY. It's what they use to ship their own apps. Version 2 landed with some serious improvements, and it's become the backbone of how I deploy everything. Zero-downtime deploys to bare metal or cheap VPSes, no orchestrator required.
 
 Let me walk you through the whole thing.
 
 ## What Kamal Actually Is
 
-Kamal is a deploy tool that uses Docker and SSH. That's it. No daemon running on your server. No agent to install. No cluster to manage. You define your deploy config in a single `deploy.yml`, run `kamal deploy`, and it SSHes into your boxes, pulls your container image, and swaps traffic over with zero downtime.
+Kamal is a deploy tool that uses [Docker](https://docs.docker.com/compose/) and SSH. That's it. No daemon running on your server. No agent to install. No cluster to manage. You define your deploy config in a single `deploy.yml`, run `kamal deploy`, and it SSHes into your boxes, pulls your container image, and swaps traffic over with zero downtime.
 
 Under the hood, it uses [Traefik](https://traefik.io/) as a reverse proxy to handle the blue-green switchover. When you deploy, Kamal boots your new container, waits for it to pass health checks, then tells Traefik to route traffic to the new container. Only after the new container is healthy does it tear down the old one. No dropped requests.
 
-Compare that to Capistrano, which was the old standard. Cap was fine for deploying Ruby apps directly onto servers, but it couldn't do zero-downtime without a bunch of extra gymnastics. And Kubernetes? K8s can absolutely do zero-downtime deploys, but the operational overhead is absurd for a small team. You're paying the complexity tax on every single thing you do.
+Compare that to [Capistrano](https://capistranorb.com/), which was the old standard. Cap was fine for deploying Ruby apps directly onto servers, but it couldn't do zero-downtime without a bunch of extra gymnastics. And Kubernetes? K8s can absolutely do zero-downtime deploys, but the operational overhead is absurd for a small team. You're paying the complexity tax on every single thing you do.
 
 Kamal sits right in the sweet spot: container-based deploys with zero-downtime, but without the yak shaving.
 

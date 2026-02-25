@@ -26,7 +26,7 @@ Total compute cost: **$25/mo**.
 
 ## Container Runtime: Docker Compose
 
-No Kubernetes. No Nomad. No Swarm. Just Docker Compose.
+No Kubernetes. No Nomad. No Swarm. Just [Docker Compose](https://docs.docker.com/compose/).
 
 I have a `docker-compose.yml` that defines my entire stack. Every service, every volume, every network. One file. I can read it top to bottom in two minutes and understand exactly what's running on my box.
 
@@ -67,7 +67,7 @@ People will tell you Docker Compose isn't "production-ready." Those people have 
 
 ## Reverse Proxy & TLS: Caddy
 
-[Caddy](https://caddyserver.com/) replaced Nginx for me two years ago and I haven't looked back. Automatic HTTPS with Let's Encrypt. Zero config for basic reverse proxying. The Caddyfile is so simple it almost feels like cheating:
+[Caddy](https://caddyserver.com/) replaced Nginx for me two years ago and I haven't looked back. Automatic HTTPS with [Let's Encrypt](https://letsencrypt.org/). Zero config for basic reverse proxying. The Caddyfile is so simple it almost feels like cheating:
 
 ```
 myapp.example.com {
@@ -85,11 +85,11 @@ plausible.example.com {
 
 That's the entire config. Caddy handles cert issuance, renewal, OCSP stapling, HTTP/2, HTTP/3. All automatic. I literally never think about TLS anymore.
 
-If you want something with more routing power, Traefik is the other good option. It integrates with Docker labels so you don't even need a config file. But for my needs, Caddy is simpler and I prefer explicit configs I can read.
+If you want something with more routing power, [Traefik](https://traefik.io/) is the other good option. It integrates with Docker labels so you don't even need a config file. But for my needs, Caddy is simpler and I prefer explicit configs I can read.
 
 ## Database: PostgreSQL 16
 
-Postgres. Running in Docker. With a volume mount for data persistence.
+[PostgreSQL](https://www.postgresql.org/). Running in Docker. With a volume mount for data persistence.
 
 "But isn't running your database in Docker risky?" Not if you're doing backups properly. I've been running Postgres in Docker for four years with zero data loss. The container is just a process — the data lives on a persistent volume on the host's NVMe drive.
 
@@ -104,7 +104,7 @@ Old backups get pruned after 7 days. Simple. Reliable.
 
 ## Cache & Queues: Redis 7
 
-Redis handles both caching and background job queues (via Sidekiq). It's running in Docker with an append-only file for persistence. Uses about 50MB of RAM for my workload.
+[Redis](https://redis.io/) handles both caching and background job queues (via Sidekiq). It's running in Docker with an append-only file for persistence. Uses about 50MB of RAM for my workload.
 
 Nothing fancy here. Redis just works. It's one of those tools where the best thing I can say is that I never think about it.
 
@@ -112,7 +112,7 @@ Nothing fancy here. Redis just works. It's one of those tools where the best thi
 
 [Kamal](https://kamal-deploy.org/) handles getting my app from a Git push to running in production. I wrote a whole post about it, but the short version: `kamal deploy` builds the Docker image, pushes it to my registry, SSHes into my servers, pulls the image, and does a zero-downtime swap. Takes about 45 seconds.
 
-For CI, I use GitHub Actions. A push to `main` triggers the pipeline: run tests, build the image, then `kamal deploy`. The whole thing is maybe 30 lines of YAML.
+For CI, I use [GitHub Actions](https://github.com/features/actions). A push to `main` triggers the pipeline: run tests, build the image, then `kamal deploy`. The whole thing is maybe 30 lines of YAML.
 
 ```yaml
 # .github/workflows/deploy.yml
@@ -192,7 +192,7 @@ Total replacement for Google Analytics, without the creepy tracking.
 
 ## Network Access: Tailscale
 
-[Tailscale](https://tailscale.com/) is how I access everything that shouldn't be public. SSH, database admin, monitoring dashboards. It creates a WireGuard mesh network between my devices and servers.
+[Tailscale](https://tailscale.com/) is how I access everything that shouldn't be public. SSH, database admin, monitoring dashboards. It creates a [WireGuard](https://www.wireguard.com/) mesh network between my devices and servers.
 
 I don't expose SSH to the public internet at all. Port 22 is firewalled. I SSH in over my Tailscale network. Same for Uptime Kuma's dashboard, Postgres connections for debugging, and anything else that's internal-only.
 

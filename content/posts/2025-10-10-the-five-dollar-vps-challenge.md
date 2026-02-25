@@ -14,16 +14,16 @@ Can you actually do it? Yeah. You can. Let me show you.
 
 ## The Box
 
-I grabbed a **Hetzner CAX11** — their smallest ARM box. Here's what $3.90/month gets you:
+I grabbed a **[Hetzner](https://www.hetzner.com/) CAX11** — their smallest ARM box. Here's what $3.90/month gets you:
 
 - 2 ARM cores (Ampere Altra)
 - 4 GB RAM
 - 40 GB NVMe disk
 - 20 TB transfer
 
-If you prefer x86 or a US-based provider, Vultr's cheapest is $5/month for 1 vCPU, 1 GB RAM, 25 GB SSD. The Hetzner ARM box is objectively better spec-for-spec, but either works.
+If you prefer x86 or a US-based provider, [Vultr](https://www.vultr.com/)'s cheapest is $5/month for 1 vCPU, 1 GB RAM, 25 GB SSD. The Hetzner ARM box is objectively better spec-for-spec, but either works.
 
-For this walkthrough I'll use the Hetzner box running Ubuntu 24.04.
+For this walkthrough I'll use the Hetzner box running [Ubuntu](https://ubuntu.com/) 24.04.
 
 ## Initial Setup (10 minutes)
 
@@ -61,12 +61,12 @@ That's your base. Took maybe 10 minutes. Now let's put an app on it.
 
 I'm going to deploy a small SaaS API — a link shortener with user accounts, rate limiting, and analytics. It's a real app that I actually run. Here's the stack:
 
-- **Node.js 20** (could be Bun, could be Rails, whatever you ship with)
-- **SQLite** with WAL mode (more on this in a future post)
-- **Caddy** for reverse proxy + auto TLS
-- **systemd** to keep everything running
+- **[Node.js](https://nodejs.org/) 20** (could be Bun, could be [Rails](https://rubyonrails.org/), whatever you ship with)
+- **[SQLite](https://sqlite.org/)** with WAL mode (more on this in a future post)
+- **[Caddy](https://caddyserver.com/)** for reverse proxy + auto TLS
+- **[systemd](https://systemd.io/)** to keep everything running
 
-Why not Docker? On a box this small, Docker's overhead actually matters. The daemon eats ~100MB of RAM just sitting there. When you've only got 4GB, that's 2.5% of your memory doing nothing. Systemd is already there and costs zero.
+Why not [Docker](https://docs.docker.com/compose/)? On a box this small, Docker's overhead actually matters. The daemon eats ~100MB of RAM just sitting there. When you've only got 4GB, that's 2.5% of your memory doing nothing. Systemd is already there and costs zero.
 
 ## Installing the Runtime
 
@@ -133,7 +133,7 @@ That `Restart=always` with `RestartSec=5` means if your app crashes, systemd bri
 
 ## Caddy for TLS
 
-Caddy is a single binary that gives you automatic HTTPS. No certbot cron jobs. No nginx config files that look like they were written by a Perl programmer having a bad day.
+Caddy is a single binary that gives you automatic HTTPS. No certbot cron jobs. No [Nginx](https://nginx.org/) config files that look like they were written by a Perl programmer having a bad day.
 
 ```bash
 # Install Caddy
@@ -152,7 +152,7 @@ links.yourdomain.com {
 }
 ```
 
-That's it. Three lines. Caddy handles getting a Let's Encrypt certificate, renewing it, redirecting HTTP to HTTPS, and proxying requests to your app. Reload with `systemctl reload caddy` and you're live.
+That's it. Three lines. Caddy handles getting a [Let's Encrypt](https://letsencrypt.org/) certificate, renewing it, redirecting HTTP to HTTPS, and proxying requests to your app. Reload with `systemctl reload caddy` and you're live.
 
 ## Real Resource Usage
 
@@ -194,7 +194,7 @@ SQLite makes backups dead simple. The database is one file. But you can't just `
 0 */6 * * * deploy sqlite3 /home/deploy/app/data/app.db ".backup /home/deploy/backups/app-$(date +\%Y\%m\%d-\%H\%M).db" && rclone copy /home/deploy/backups/ b2:my-backups/linkshort/ --max-age 1d
 ```
 
-**Option 2: Litestream (continuous replication)**
+**Option 2: [Litestream](https://litestream.io/) (continuous replication)**
 
 ```yaml
 # /etc/litestream.yml
@@ -237,7 +237,7 @@ Real talk: when do you need to upgrade?
 - **RAM is the first bottleneck.** If your app starts swapping, bump to the next tier. On Hetzner that's the CAX21 at $8.50 for 8GB. Still absurdly cheap.
 - **CPU usually isn't the problem** for web apps. Most time is spent waiting on I/O.
 - **Disk fills up** if you're storing uploads or have a growing database. Add a volume or move uploads to object storage (Backblaze B2 or Hetzner's object storage).
-- **If you need multiple servers** — for redundancy or because you're actually getting serious traffic — that's when you graduate to Docker Compose on a bigger box, or maybe two boxes with a load balancer. But we're talking tens of thousands of requests per minute before you're anywhere near that.
+- **If you need multiple servers** — for redundancy or because you're actually getting serious traffic — that's when you graduate to [Docker Compose](https://docs.docker.com/compose/) on a bigger box, or maybe two boxes with a load balancer. But we're talking tens of thousands of requests per minute before you're anywhere near that.
 
 Most indie apps will never outgrow a $5-10 box. That's just the reality. We've been sold a narrative that you need complex infrastructure from day one. You don't. Ship on the small box. Upgrade when the metrics tell you to, not when your anxiety tells you to.
 

@@ -8,7 +8,7 @@ tags:
   - "self-hosted"
 ---
 
-I lost a database once. SQLite file on a $5 VPS. No backups. It was a side project with maybe 200 users, and I spent a weekend apologizing in a Discord channel while trying to reconstruct data from browser caches people sent me screenshots of. Never again.
+I lost a database once. SQLite file on a $5 VPS. No backups. It was a side project with maybe 200 users, and I spent a weekend apologizing in a [Discord](https://discord.com/) channel while trying to reconstruct data from browser caches people sent me screenshots of. Never again.
 
 That day I went down the backup rabbit hole and came out the other side with a setup that costs me about $1.50/month, runs unattended, and has saved me three times since. Here's the whole thing.
 
@@ -18,9 +18,9 @@ You've probably heard this: 3 copies of your data, on 2 different media types, w
 
 1. **Live data** on your VPS (copy 1)
 2. **Local Borg repo** on the same box or an attached volume (copy 2, different format)
-3. **Rclone sync** to Backblaze B2 or Wasabi (copy 3, offsite)
+3. **[Rclone](https://rclone.org/) sync** to [Backblaze B2](https://www.backblaze.com/cloud-storage) or [Wasabi](https://wasabi.com/) (copy 3, offsite)
 
-That's it. Three layers. If your VPS provider has a datacenter fire (OVH, anyone?), you've still got B2. If you fat-finger a `DROP TABLE`, Borg has your deduped snapshots going back weeks.
+That's it. Three layers. If your VPS provider has a datacenter fire (OVH, anyone?), you've still got B2. If you fat-finger a `DROP TABLE`, [Borg](https://www.borgbackup.org/) has your deduped snapshots going back weeks.
 
 ## Why BorgBackup
 
@@ -102,7 +102,7 @@ Note the database dumps happening *before* the borg create. You don't want borg 
 
 ## Enter Borgmatic (Optional but Nice)
 
-If you don't want to maintain a shell script, borgmatic wraps borg with a YAML config. Install it:
+If you don't want to maintain a shell script, [borgmatic](https://torsion.org/borgmatic/) wraps borg with a YAML config. Install it:
 
 ```bash
 pip install borgmatic

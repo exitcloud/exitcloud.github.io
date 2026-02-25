@@ -8,7 +8,7 @@ tags:
   - "security"
 ---
 
-I've run OpenVPN, IPsec, SSH tunnels, and various cursed iptables hacks to access home services remotely. Then I tried WireGuard and felt stupid for not switching sooner. It's faster, simpler, and the config file is like 15 lines. Let me show you.
+I've run OpenVPN, IPsec, SSH tunnels, and various cursed iptables hacks to access home services remotely. Then I tried [WireGuard](https://www.wireguard.com/) and felt stupid for not switching sooner. It's faster, simpler, and the config file is like 15 lines. Let me show you.
 
 ## Why WireGuard over OpenVPN
 
@@ -154,7 +154,7 @@ No restart needed. The new peer connects immediately.
 
 ## The easy button: Tailscale
 
-Okay, real talk. If the above feels like too much, just use Tailscale. It's WireGuard underneath, but it handles all the key exchange, NAT traversal, and config for you. Install it, sign in, done.
+Okay, real talk. If the above feels like too much, just use [Tailscale](https://tailscale.com/). It's WireGuard underneath, but it handles all the key exchange, NAT traversal, and config for you. Install it, sign in, done.
 
 ```bash
 curl -fsSL https://tailscale.com/install.sh | sh
@@ -187,7 +187,7 @@ A few things to tighten up your raw WireGuard setup:
 
 ## Use case: access your home services from anywhere
 
-Here's my actual setup. I have a mini PC at home running Nextcloud, Vaultwarden, Grafana, and a few other things. All of these listen on localhost or the LAN — nothing is exposed to the public internet. WireGuard lets me reach them from my laptop at a coffee shop or my phone on the train.
+Here's my actual setup. I have a mini PC at home running [Nextcloud](https://nextcloud.com/), [Vaultwarden](https://github.com/dani-garcia/vaultwarden), Grafana, and a few other things. All of these listen on localhost or the LAN — nothing is exposed to the public internet. WireGuard lets me reach them from my laptop at a coffee shop or my phone on the train.
 
 My `AllowedIPs` on the client side: `10.0.0.0/24, 192.168.1.0/24`. Split tunnel. Only traffic destined for my home network goes through the VPN. Everything else goes through whatever WiFi I'm on. Fast, secure, and my home IP doesn't appear in random access logs.
 

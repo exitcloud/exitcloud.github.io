@@ -81,7 +81,7 @@ Your VPS's IP address needs a PTR record that points back to your mail hostname.
 49.12.45.101 -> mail.example.com
 ```
 
-Most providers (Hetzner, DigitalOcean, Vultr) let you set this in the dashboard. If your PTR record doesn't match your mail hostname, Gmail and Outlook will reject your mail outright. Not spam-folder it. *Reject* it.
+Most providers ([Hetzner](https://www.hetzner.com/), DigitalOcean, Vultr) let you set this in the dashboard. If your PTR record doesn't match your mail hostname, Gmail and Outlook will reject your mail outright. Not spam-folder it. *Reject* it.
 
 ### MX Record
 

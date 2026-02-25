@@ -12,7 +12,7 @@ Every few months someone on Hacker News posts about their Kubernetes setup for t
 
 Stop it.
 
-Docker Compose is all you need. I run three profitable SaaS apps on it. Let me show you the actual setup.
+[Docker Compose](https://docs.docker.com/compose/) is all you need. I run three profitable SaaS apps on it. Let me show you the actual setup.
 
 ## The Anti-Kubernetes Manifesto
 
@@ -33,7 +33,7 @@ That's the whole list. That's all you need.
 
 ## A Real docker-compose.yml
 
-Here's the actual Compose file I use for one of my apps. It's a Rails API with Postgres, Redis, Sidekiq for background jobs, and Caddy as the reverse proxy. Nothing is redacted except domain names.
+Here's the actual Compose file I use for one of my apps. It's a [Rails](https://rubyonrails.org/) API with [PostgreSQL](https://www.postgresql.org/), [Redis](https://redis.io/), Sidekiq for background jobs, and [Caddy](https://caddyserver.com/) as the reverse proxy. Nothing is redacted except domain names.
 
 ```yaml
 version: "3.8"
@@ -156,7 +156,7 @@ See those `healthcheck` blocks? They're doing real work. Without health checks, 
 
 With `condition: service_healthy`, Compose waits until the dependency passes its health check before starting dependents. This eliminates 90% of the "it works on second try" problems.
 
-The `start_period` on the app container gives it 30 seconds to boot before health checks start counting failures. Rails apps need time to warm up. Node apps too, if you're precompiling assets.
+The `start_period` on the app container gives it 30 seconds to boot before health checks start counting failures. Rails apps need time to warm up. [Node.js](https://nodejs.org/) apps too, if you're precompiling assets.
 
 ## Restart Policies
 

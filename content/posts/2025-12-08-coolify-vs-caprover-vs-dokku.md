@@ -8,15 +8,15 @@ tags:
   - "self-hosted"
 ---
 
-At some point every indie dev hits the same wall. You've got 3-4 apps running on a VPS. You're SSH-ing in to deploy. You've got a pile of nginx configs, a docker-compose file that's getting unwieldy, and SSL certs that you forgot to renew last month. You think: "There has to be something between raw Docker and paying Vercel $20/month per app."
+At some point every indie dev hits the same wall. You've got 3-4 apps running on a VPS. You're SSH-ing in to deploy. You've got a pile of [nginx](https://nginx.org/) configs, a [docker-compose](https://docs.docker.com/compose/) file that's getting unwieldy, and SSL certs that you forgot to renew last month. You think: "There has to be something between raw Docker and paying [Vercel](https://vercel.com/) $20/month per app."
 
-There is. Three somethings, actually: Coolify, CapRover, and Dokku. They're all self-hosted PaaS platforms. They all run on a single VPS. And they all handle the boring stuff -- builds, deploys, SSL, reverse proxy -- so you can focus on shipping.
+There is. Three somethings, actually: [Coolify](https://coolify.io/), [CapRover](https://caprover.com/), and [Dokku](https://dokku.com/). They're all self-hosted PaaS platforms. They all run on a single VPS. And they all handle the boring stuff -- builds, deploys, SSL, reverse proxy -- so you can focus on shipping.
 
 I've run all three in production. Here's the honest breakdown.
 
 ## Dokku: The OG
 
-Dokku has been around since 2013. It's basically "Heroku on a VPS" and it delivers exactly that promise. You `git push dokku main` and your app deploys. It uses Heroku buildpacks (or Dockerfiles), handles SSL via Let's Encrypt, and manages nginx routing.
+Dokku has been around since 2013. It's basically "[Heroku](https://www.heroku.com/) on a VPS" and it delivers exactly that promise. You `git push dokku main` and your app deploys. It uses Heroku buildpacks (or Dockerfiles), handles SSL via [Let's Encrypt](https://letsencrypt.org/), and manages nginx routing.
 
 ### Install
 
@@ -222,7 +222,7 @@ Every subsequent push to that branch triggers a new deploy. You can watch the bu
 
 ## My Current Setup
 
-I run Coolify on a 4GB RAM VPS ($12/month on Hetzner). It manages three servers -- itself plus two app servers. The PR preview deploys sold me. Being able to push a branch and get a live preview URL without any extra config is something I didn't know I needed until I had it.
+I run Coolify on a 4GB RAM VPS ($12/month on [Hetzner](https://www.hetzner.com/)). It manages three servers -- itself plus two app servers. The PR preview deploys sold me. Being able to push a branch and get a live preview URL without any extra config is something I didn't know I needed until I had it.
 
 That said, I kept a Dokku box around for my simplest apps. Some things don't need a UI. `git push dokku main` and move on. There's something pure about it.
 

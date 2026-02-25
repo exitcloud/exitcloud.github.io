@@ -8,7 +8,7 @@ tags:
   - "devops"
 ---
 
-The default PostgreSQL config is designed to run on a toaster. Seriously — it ships with `shared_buffers = 128MB` and `work_mem = 4MB` because the Postgres team wants it to work on any hardware, including a Raspberry Pi from 2015. If you're running a real app on a real server, you need to change about five settings. That's it. Five settings and you're 80% of the way to a well-tuned Postgres.
+The default [PostgreSQL](https://www.postgresql.org/) config is designed to run on a toaster. Seriously — it ships with `shared_buffers = 128MB` and `work_mem = 4MB` because the Postgres team wants it to work on any hardware, including a [Raspberry Pi](https://www.raspberrypi.com/) from 2015. If you're running a real app on a real server, you need to change about five settings. That's it. Five settings and you're 80% of the way to a well-tuned Postgres.
 
 I've been running Postgres on single-server setups — VPSes, mini PCs, small dedicated boxes — for years. No replicas, no clustering, no managed database service. Just one box, one Postgres instance, one app. Here's what I've learned.
 
@@ -80,7 +80,7 @@ The real answer is connection pooling. Which brings us to...
 
 ## PgBouncer: stop opening direct connections
 
-If your app opens a connection, runs a query, and closes the connection — or worse, holds connections open while waiting for user input — you're wasting Postgres resources. PgBouncer sits between your app and Postgres and pools connections.
+If your app opens a connection, runs a query, and closes the connection — or worse, holds connections open while waiting for user input — you're wasting Postgres resources. [PgBouncer](https://www.pgbouncer.org/) sits between your app and Postgres and pools connections.
 
 ```ini
 # /etc/pgbouncer/pgbouncer.ini

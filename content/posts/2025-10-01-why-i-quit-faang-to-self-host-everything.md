@@ -26,27 +26,27 @@ I sat there staring at my monitor thinking, "I could have SSH'd into a box and c
 
 ## The Cloud Bill That Broke Me
 
-Around the same time, I started doing napkin math on what our team's infrastructure actually cost. I'm not talking about the whole company — just our corner of it. One mid-sized service with a Postgres database, a Redis cache, some background workers, and a CDN.
+Around the same time, I started doing napkin math on what our team's infrastructure actually cost. I'm not talking about the whole company — just our corner of it. One mid-sized service with a [PostgreSQL](https://www.postgresql.org/) database, a [Redis](https://redis.io/) cache, some background workers, and a CDN.
 
 The monthly AWS bill for this setup? Roughly **$4,200/month**. And that was *after* someone on the team had done a cost optimization pass.
 
 RDS instance: $800. ElastiCache: $400. A couple of ECS Fargate tasks: $600. Load balancer: $200. CloudWatch logs and metrics: $350. Data transfer: who even knows, AWS pricing is designed by sadists. The rest was a grab bag of S3, SNS, SQS, and services I'm not sure anyone was still using.
 
-You know what that same workload costs me now? **$20/month.** A Hetzner CAX21 (4 ARM cores, 8GB RAM, 80GB disk). Running everything on one box. Postgres, Redis, the app, Caddy for TLS. All in Docker Compose. And it handles more traffic than that old service ever did.
+You know what that same workload costs me now? **$20/month.** A [Hetzner](https://www.hetzner.com/) CAX21 (4 ARM cores, 8GB RAM, 80GB disk). Running everything on one box. Postgres, Redis, the app, [Caddy](https://caddyserver.com/) for TLS. All in [Docker Compose](https://docs.docker.com/compose/). And it handles more traffic than that old service ever did.
 
 I'm not exaggerating. I'm not running a toy. I'm running real apps with real users who pay real money, and my entire infrastructure bill is less than what my old team spent on CloudWatch *alone*.
 
 ## What "Self-Hosting" Actually Means
 
-Let me clear something up: self-hosting doesn't mean you're running servers in your closet. (Though some people do that. Respect.) For me, it means renting cheap VPS boxes from providers like Hetzner, Vultr, or OVH, and managing everything myself.
+Let me clear something up: self-hosting doesn't mean you're running servers in your closet. (Though some people do that. Respect.) For me, it means renting cheap VPS boxes from providers like Hetzner, [Vultr](https://www.vultr.com/), or OVH, and managing everything myself.
 
 The stack is simple:
 
 - **A VPS** — usually Hetzner. Their ARM boxes are absurd value.
 - **Docker Compose** — one `docker-compose.yml` to rule them all.
-- **Caddy** — reverse proxy with automatic TLS. No more Let's Encrypt cron jobs.
-- **SQLite or Postgres** — depends on the app. SQLite for anything single-server.
-- **Litestream or pg_dump** — backups to S3-compatible storage (Backblaze B2, $0.005/GB).
+- **Caddy** — reverse proxy with automatic TLS. No more [Let's Encrypt](https://letsencrypt.org/) cron jobs.
+- **[SQLite](https://sqlite.org/) or Postgres** — depends on the app. SQLite for anything single-server.
+- **[Litestream](https://litestream.io/) or pg_dump** — backups to S3-compatible storage (Backblaze B2, $0.005/GB).
 - **A simple deploy script** — `ssh box "cd /app && git pull && docker compose up -d"`. Done.
 
 No Kubernetes. No Terraform (usually). No service mesh. No config management tool that takes three days to learn. Just files on a server.
@@ -92,7 +92,7 @@ I'm not trying to convince you to quit your job. FAANG pays well. The problems c
 
 But if you've got a side project, or an app idea, or you're just tired of over-engineering everything — consider that a $20 server might be all you need. The indie dev path is real. The tools have never been better. A single developer with a VPS and some battle-tested open source software can ship things that would've required a whole team ten years ago.
 
-I'll be writing more about the specific tools and techniques I use. How to set up a VPS from scratch. Why Docker Compose is the only orchestrator you need. Why Caddy replaced nginx for me. Why I'm running SQLite in production (yes, really).
+I'll be writing more about the specific tools and techniques I use. How to set up a VPS from scratch. Why Docker Compose is the only orchestrator you need. Why Caddy replaced [Nginx](https://nginx.org/) for me. Why I'm running SQLite in production (yes, really).
 
 This is the stack I wish someone had shown me when I was still over-engineering everything at BigCo. Simple. Cheap. Yours.
 

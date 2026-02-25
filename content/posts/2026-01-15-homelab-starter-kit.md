@@ -18,13 +18,13 @@ You have three real options. Let me save you some time.
 
 ### Option 1: Mini PC ($150-300) — the right answer for most people
 
-A used or refurbished mini PC is the sweet spot. Something like a Beelink SER5 or a Lenovo ThinkCentre Tiny. You get a real x86 CPU, 16-32GB of RAM, an NVMe slot, and it sips power — usually 10-25 watts under load.
+A used or refurbished mini PC is the sweet spot. Something like a [Beelink](https://www.bee-link.com/) SER5 or a Lenovo ThinkCentre Tiny. You get a real x86 CPU, 16-32GB of RAM, an NVMe slot, and it sips power — usually 10-25 watts under load.
 
 What I run: a Beelink SER5 with a Ryzen 5 5560U, 32GB RAM, 500GB NVMe. Paid $180 refurbished. It sits on a shelf in my closet, pulls about 15 watts, and is dead silent. It runs everything I need.
 
 ### Option 2: Raspberry Pi ($50-100) — good for dedicated single-purpose boxes
 
-A Pi 5 with 8GB is genuinely capable now. Good for Pi-hole, Home Assistant, or a dedicated WireGuard endpoint. Bad for anything that needs real CPU or more than 8GB of RAM. Also bad if you want to run a bunch of Docker containers — the SD card I/O will make you miserable (use a USB SSD if you go this route).
+A [Pi 5](https://www.raspberrypi.com/) with 8GB is genuinely capable now. Good for [Pi-hole](https://pi-hole.net/), [Home Assistant](https://www.home-assistant.io/), or a dedicated [WireGuard](https://www.wireguard.com/) endpoint. Bad for anything that needs real CPU or more than 8GB of RAM. Also bad if you want to run a bunch of [Docker](https://docs.docker.com/compose/) containers — the SD card I/O will make you miserable (use a USB SSD if you go this route).
 
 I have a Pi 4 running Pi-hole. That's it. Everything else runs on the mini PC.
 
@@ -42,7 +42,7 @@ Skip NAS-specific hardware unless you actually need a NAS. A Synology is great f
 
 Two schools of thought here.
 
-**Proxmox** is a hypervisor — it lets you spin up virtual machines and containers from a web UI. It's great if you want to experiment with different OSes, snapshot before you break things, or isolate workloads properly. It's also heavier and adds complexity.
+**[Proxmox](https://www.proxmox.com/)** is a hypervisor — it lets you spin up virtual machines and containers from a web UI. It's great if you want to experiment with different OSes, snapshot before you break things, or isolate workloads properly. It's also heavier and adds complexity.
 
 **Bare Docker on Ubuntu/Debian** is simpler. Install Docker, write some compose files, done. Less overhead, fewer layers to debug. If something breaks, you're debugging one Linux box, not a VM inside a hypervisor inside a box.
 
@@ -58,7 +58,7 @@ docker compose version
 
 ## Networking: Tailscale changes everything
 
-The single best homelab decision I made was installing Tailscale on every machine. It creates a WireGuard mesh network across all your devices — your homelab, your laptop, your phone. No port forwarding. No dynamic DNS. No exposing anything to the public internet.
+The single best homelab decision I made was installing [Tailscale](https://tailscale.com/) on every machine. It creates a WireGuard mesh network across all your devices — your homelab, your laptop, your phone. No port forwarding. No dynamic DNS. No exposing anything to the public internet.
 
 ```bash
 curl -fsSL https://tailscale.com/install.sh | sh
@@ -67,7 +67,7 @@ sudo tailscale up
 
 That's it. Now your homelab box has a stable IP on your Tailscale network (like `100.x.y.z`) and you can reach it from anywhere. Your phone on cellular? Works. Coffee shop WiFi? Works. It's magic and it's free for personal use (up to 100 devices).
 
-For services you want to expose with nice URLs, run Caddy as a reverse proxy on the homelab box:
+For services you want to expose with nice URLs, run [Caddy](https://caddyserver.com/) as a reverse proxy on the homelab box:
 
 ```
 pihole.home.ts.net {
@@ -104,13 +104,13 @@ services:
     restart: unless-stopped
 ```
 
-**2. Uptime Kuma** — A beautiful uptime monitoring dashboard. Monitor your own services, external sites, anything with a URL. Alerts via email, Slack, Discord.
+**2. [Uptime Kuma](https://github.com/louislam/uptime-kuma)** — A beautiful uptime monitoring dashboard. Monitor your own services, external sites, anything with a URL. Alerts via email, Slack, Discord.
 
-**3. Nextcloud** — Replace Google Drive/Dropbox. Calendar, contacts, file sync. It's heavy and sometimes annoying to maintain, but the privacy payoff is real.
+**3. [Nextcloud](https://nextcloud.com/)** — Replace Google Drive/Dropbox. Calendar, contacts, file sync. It's heavy and sometimes annoying to maintain, but the privacy payoff is real.
 
-**4. Media stack** — Jellyfin for streaming your media library. Way better than Plex's recent direction. Pair it with *arr apps if you're into automated media management.
+**4. Media stack** — [Jellyfin](https://jellyfin.org/) for streaming your media library. Way better than Plex's recent direction. Pair it with *arr apps if you're into automated media management.
 
-**5. Vaultwarden** — Self-hosted Bitwarden. Your passwords, your server. Compatible with all Bitwarden apps.
+**5. [Vaultwarden](https://github.com/dani-garcia/vaultwarden)** — Self-hosted Bitwarden. Your passwords, your server. Compatible with all Bitwarden apps.
 
 ## Power and noise — the stuff nobody talks about
 

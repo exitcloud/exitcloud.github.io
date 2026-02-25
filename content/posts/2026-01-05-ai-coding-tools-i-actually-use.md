@@ -48,7 +48,7 @@ Cost: ~$20/month with the Max plan, or use the API and pay per token. For how mu
 
 The autocomplete. The thing that finishes your lines. I've had this since the beta and it's become muscle memory. Tab, tab, tab.
 
-It's best for the boring stuff. Writing a new Express route handler that looks like the last five? Copilot has it. Filling out a switch statement? Copilot. Writing the fifteenth test case that follows the same pattern? Copilot.
+It's best for the boring stuff. Writing a new Express route handler that looks like the last five? [Copilot](https://github.com/features/copilot) has it. Filling out a switch statement? Copilot. Writing the fifteenth test case that follows the same pattern? Copilot.
 
 Where it falls apart: anything novel. If you're doing something the training data hasn't seen a thousand times, the suggestions get weird fast. I've seen it confidently autocomplete API calls to endpoints that don't exist.
 
@@ -68,7 +68,7 @@ Cost: $20/month for Pro. I keep subscribing, canceling, resubscribing. That prob
 
 ### Aider
 
-I really wanted to like Aider. It's open source, runs in the terminal, works with multiple LLM backends. The git integration is clever — it commits changes automatically so you can review diffs.
+I really wanted to like [Aider](https://aider.chat/). It's open source, runs in the terminal, works with multiple LLM backends. The git integration is clever — it commits changes automatically so you can review diffs.
 
 Why I stopped: the workflow felt clunky for my use case. It wants to own the conversation and the git history, and I'm particular about both. The auto-commits cluttered my log. And when it made mistakes across multiple files, unwinding them was more work than just writing the code myself.
 
@@ -78,7 +78,7 @@ That said — if you're on a budget and want to bring your own API key, Aider is
 
 I mean the web UI, not the API. Copy-pasting code back and forth from a browser window is painful. It loses context constantly. The code it generates often doesn't match your actual project structure because it can't see your project.
 
-I still use ChatGPT for explaining concepts, rubber-ducking architecture decisions, and writing docs. But for writing code that goes into a repo? No.
+I still use [ChatGPT](https://chat.openai.com/) for explaining concepts, rubber-ducking architecture decisions, and writing docs. But for writing code that goes into a repo? No.
 
 ### Various "AI-first IDEs"
 

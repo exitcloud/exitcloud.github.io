@@ -10,7 +10,7 @@ tags:
 
 I used to deploy by SSH-ing into my VPS and running `git pull && docker compose up -d`. It worked. Until I fat-fingered a command, brought the site down for 20 minutes, and realized I'd been running the wrong branch. Classic.
 
-GitHub Actions fixed this for me, and the free tier is absurdly generous for indie devs: 2,000 minutes/month on Linux runners. I burn maybe 200-300 minutes across all my projects. It's basically free CI/CD.
+[GitHub Actions](https://github.com/features/actions) fixed this for me, and the free tier is absurdly generous for indie devs: 2,000 minutes/month on Linux runners. I burn maybe 200-300 minutes across all my projects. It's basically free CI/CD.
 
 But here's the thing -- most GitHub Actions tutorials are written for teams with 15 microservices, a staging environment, and a QA department. You don't need that. You need: run tests, build, deploy to your VPS. Done. Let's set that up.
 
@@ -59,7 +59,7 @@ That's 30 lines. Push to main, tests run, if they pass, it SSH-es into your box 
 
 ## Docker Build + Push
 
-If your app runs in Docker (it probably should), here's the pattern I use most:
+If your app runs in [Docker](https://docs.docker.com/compose/) (it probably should), here's the pattern I use most:
 
 ```yaml
 name: Build and Deploy
@@ -110,7 +110,7 @@ jobs:
             docker compose up -d --pull always
 ```
 
-This builds your Docker image on GitHub's runners (free compute!), pushes it to GitHub Container Registry (free for public repos, generous limits for private), and then tells your VPS to pull the new image. Your VPS doesn't need Node.js, Go, Rust, or whatever installed. Just Docker.
+This builds your Docker image on GitHub's runners (free compute!), pushes it to [GitHub Container Registry](https://ghcr.io/) (free for public repos, generous limits for private), and then tells your VPS to pull the new image. Your VPS doesn't need Node.js, Go, Rust, or whatever installed. Just Docker.
 
 ## Secrets Management
 

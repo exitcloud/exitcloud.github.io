@@ -8,7 +8,7 @@ tags:
   - "databases"
 ---
 
-Every time I tell someone I run SQLite in production, I get the same look. That slightly concerned head-tilt, like I just told them I drive without a seatbelt. "But what about concurrency? What about backups? What about... scale?"
+Every time I tell someone I run [SQLite](https://sqlite.org/) in production, I get the same look. That slightly concerned head-tilt, like I just told them I drive without a seatbelt. "But what about concurrency? What about backups? What about... scale?"
 
 Yeah. What about them. Let me tell you what actually happens when you run SQLite in production. Spoiler: it's boring. In the best way.
 
@@ -16,9 +16,9 @@ Yeah. What about them. Let me tell you what actually happens when you run SQLite
 
 One of my apps is a URL analytics platform. Users create short links, I track clicks, they see dashboards. At the time of writing, it handles about 2,000 requests per minute at peak. The database is 4.3 GB. The read-to-write ratio is roughly 15:1.
 
-It runs on SQLite. On a $9 Hetzner box. The P99 response time is 12ms.
+It runs on SQLite. On a $9 [Hetzner](https://www.hetzner.com/) box. The P99 response time is 12ms.
 
-This is not a toy. This is a real app that people pay for. And SQLite is not just "good enough" — it's actually *faster* than the Postgres setup I was running before, because there's no network hop between the app and the database. The database is just... a file. On the same disk. Right there.
+This is not a toy. This is a real app that people pay for. And SQLite is not just "good enough" — it's actually *faster* than the [PostgreSQL](https://www.postgresql.org/) setup I was running before, because there's no network hop between the app and the database. The database is just... a file. On the same disk. Right there.
 
 ## Why SQLite Works (When It Works)
 
@@ -64,7 +64,7 @@ Let me break these down:
 - **`cache_size = -64000`** — Negative number means kilobytes. 64MB of page cache in RAM. Adjust based on your available memory.
 - **`mmap_size`** — Memory-maps the database file up to 256MB. Reads become memory accesses instead of `read()` syscalls. Huge performance win for read-heavy workloads.
 
-In Node.js with `better-sqlite3`:
+In [Node.js](https://nodejs.org/) with `better-sqlite3`:
 
 ```javascript
 const db = require('better-sqlite3')('app.db');
@@ -167,9 +167,9 @@ Be honest with yourself about whether SQLite fits your use case:
 
 ## 37signals Showed the Way
 
-When the team behind Basecamp and HEY started talking publicly about running SQLite in production for their Rails apps, it was a turning point. These aren't hobbyists. They run apps serving millions of users. And they said, yeah, SQLite works.
+When the team behind Basecamp and HEY started talking publicly about running SQLite in production for their [Rails](https://rubyonrails.org/) apps, it was a turning point. These aren't hobbyists. They run apps serving millions of users. And they said, yeah, SQLite works.
 
-Rails 8 shipped with built-in SQLite support for production, including a solid adapter and `solid_cache`/`solid_queue` gems that use SQLite as a backend for caching and background jobs. No Redis required. The entire 37signals stack runs on SQLite now for apps like Campfire.
+Rails 8 shipped with built-in SQLite support for production, including a solid adapter and `solid_cache`/`solid_queue` gems that use SQLite as a backend for caching and background jobs. No [Redis](https://redis.io/) required. The entire [37signals](https://dev.37signals.com/) stack runs on SQLite now for apps like Campfire.
 
 If it's good enough for DHH's apps, it's probably good enough for your link shortener.
 

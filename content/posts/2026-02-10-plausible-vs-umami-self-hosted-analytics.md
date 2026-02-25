@@ -10,7 +10,7 @@ tags:
 
 I ripped Google Analytics off all my sites in 2024. Not because of some grand privacy stance — though that's a nice bonus — but because GA4 is genuinely terrible to use. The UI is a maze. Simple questions like "how many people visited my site today" require clicking through five menus. And the tracking script is 45KB and slows down page loads.
 
-So I went looking for something simpler. Ended up trying both Plausible and Umami, running them self-hosted on my own box. I've been using both for over a year now. Here's the real comparison.
+So I went looking for something simpler. Ended up trying both [Plausible](https://plausible.io/) and [Umami](https://umami.is/), running them self-hosted on my own box. I've been using both for over a year now. Here's the real comparison.
 
 ## The TL;DR
 
@@ -105,7 +105,7 @@ Three containers: the Plausible app, Postgres for config/users, and ClickHouse f
 
 ## Umami: the lightweight one
 
-Umami takes a different approach. It's a Next.js app backed by either Postgres or MySQL. One app container, one database. That's it.
+Umami takes a different approach. It's a Next.js app backed by either [Postgres](https://www.postgresql.org/) or MySQL. One app container, one database. That's it.
 
 ### Deploying Umami
 

@@ -8,9 +8,9 @@ tags:
   - "self-hosted"
 ---
 
-I used nginx for ten years. I wrote more `location` blocks than I can count. I debugged `proxy_set_header` issues at 2 AM. I ran certbot cron jobs that silently broke and left me with expired certificates on a Friday afternoon.
+I used [Nginx](https://nginx.org/) for ten years. I wrote more `location` blocks than I can count. I debugged `proxy_set_header` issues at 2 AM. I ran certbot cron jobs that silently broke and left me with expired certificates on a Friday afternoon.
 
-Then I switched to Caddy, and I'm never going back.
+Then I switched to [Caddy](https://caddyserver.com/), and I'm never going back.
 
 ## The Nginx Config That Made Me Snap
 
@@ -53,7 +53,7 @@ server {
 }
 ```
 
-Plus you need certbot installed, a cron job or systemd timer for renewal, and a post-renewal hook to reload nginx. And you need to have run `certbot certonly` before nginx can even start, because nginx will refuse to boot if the certificate files don't exist yet. Chicken-and-egg problem.
+Plus you need certbot installed, a cron job or [systemd](https://systemd.io/) timer for renewal, and a post-renewal hook to reload nginx. And you need to have run `certbot certonly` before nginx can even start, because nginx will refuse to boot if the certificate files don't exist yet. Chicken-and-egg problem.
 
 Now here's the equivalent Caddyfile:
 
@@ -65,13 +65,13 @@ myapp.example.com {
 
 Three lines. That's it.
 
-Caddy handles: obtaining the TLS certificate from Let's Encrypt, renewing it automatically, HTTP-to-HTTPS redirect, setting the right proxy headers, HTTP/2, OCSP stapling — all of it. Out of the box. Zero config.
+Caddy handles: obtaining the TLS certificate from [Let's Encrypt](https://letsencrypt.org/), renewing it automatically, HTTP-to-HTTPS redirect, setting the right proxy headers, HTTP/2, OCSP stapling — all of it. Out of the box. Zero config.
 
 I stared at this for about five minutes the first time, waiting for the catch. There isn't one.
 
 ## Installing Caddy
 
-On Ubuntu/Debian:
+On [Ubuntu](https://ubuntu.com/)/Debian:
 
 ```bash
 apt install -y debian-keyring debian-archive-keyring apt-transport-https
@@ -82,7 +82,7 @@ curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | \
 apt update && apt install caddy -y
 ```
 
-Or in Docker:
+Or in [Docker](https://docs.docker.com/compose/):
 
 ```yaml
 caddy:
@@ -171,7 +171,7 @@ If you've spent any time debugging nginx WebSocket configs, you know what a reli
 
 ## Caddy in Docker Compose
 
-Here's how Caddy fits into a full Compose setup. The gotcha most people hit is Docker networking — your app isn't on `localhost` from Caddy's perspective; it's on the Docker network.
+Here's how Caddy fits into a full [Docker Compose](https://docs.docker.com/compose/) setup. The gotcha most people hit is Docker networking — your app isn't on `localhost` from Caddy's perspective; it's on the Docker network.
 
 ```yaml
 services:
