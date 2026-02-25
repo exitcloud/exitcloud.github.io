@@ -23,11 +23,11 @@ Let me show you what actually works.
 
 The cloud providers sell you a dream of infinite scale and convenience. What they don't tell you is that you're paying a massive premium for it, and you're getting locked into their ecosystem. Owning your stack isn't just about saving money, it's about control.
 
-Look at 37signals. They're not a tiny indie shop, but they think like one. They just finished moving a staggering **5 petabytes** of data out of S3. Five. Petabytes.
+Look at [37signals](https://dev.37signals.com/). They're not a tiny indie shop, but they think like one. They just finished moving a staggering [**5 petabytes** of data out of S3](https://dev.37signals.com/bringing-our-apps-back-home/). Five. Petabytes.
 
-How'd they do it? Not with some managed cloud migration service that costs six figures. They did it with their own tools, on their own hardware. They bought a Pure Storage FlashBlade box—basically a super-fast, on-prem S3-compatible system—and hooked it up to a 100 gigabit network connection dedicated to just copying data. This wasn't a weekend project; it took 90 days, but they pulled it off with zero downtime.
+How'd they do it? Not with some managed cloud migration service that costs six figures. They did it with their own tools, on their own hardware. They bought a [Pure Storage FlashBlade](https://www.purestorage.com/products/file-and-object/flashblade.html) box—basically a super-fast, on-prem S3-compatible system—and hooked it up to a 100 gigabit network connection dedicated to just copying data. This wasn't a weekend project; it took 90 days, but they pulled it off with zero downtime.
 
-Performance is another big win. When you control the metal, you control the network. After 37signals moved their Docker registry to an on-premise Harbor instance, they cut deployment times by up to 25 seconds. For apps like HEY and Basecamp, that's a huge deal. Twenty-five seconds might not sound like much, but when you're deploying multiple times a day, it adds up. It's the difference between staying in the flow and getting distracted by a slow progress bar. That's a real, tangible improvement to your workflow, just from bringing one piece of infrastructure in-house.
+Performance is another big win. When you control the metal, you control the network. After 37signals moved their Docker registry to an on-premise [Harbor](https://goharbor.io/) instance, they cut deployment times by up to 25 seconds. For apps like HEY and Basecamp, that's a huge deal. Twenty-five seconds might not sound like much, but when you're deploying multiple times a day, it adds up. It's the difference between staying in the flow and getting distracted by a slow progress bar. That's a real, tangible improvement to your workflow, just from bringing one piece of infrastructure in-house.
 
 ### DIY Docker Registry: Harbor on a Budget VPS
 
@@ -35,7 +35,7 @@ So you're convinced. You want to run your own stuff. Where do you start? A priva
 
 Let's spin up our own.
 
-37signals runs Harbor on-prem. Harbor is an open-source container registry that's become the go-to for this stuff. Now, if you look at their docs, you'll see a lot about Kubernetes. Don't get spooked. This is a classic footgun where the "enterprise-ready" path is shoved in your face.
+[37signals runs Harbor on-prem](https://dev.37signals.com/). Harbor is an [open-source container registry](https://goharbor.io/) that's become the go-to for this stuff. Now, if you look at their docs, you'll see a lot about Kubernetes. Don't get spooked. This is a classic footgun where the "enterprise-ready" path is shoved in your face.
 
 Harbor's **deployment** is optimized for Kubernetes, sure, but it also ships with a pre-packaged `docker-compose` configuration. That's our entry point. You can get a single-server Harbor instance running on a cheap VPS in under an hour. It just works.
 
@@ -49,7 +49,7 @@ Here's the basic play:
 
 That's it. You have a private, secure Docker registry.
 
-For storage, you don't need a massive Pure FlashBlade appliance like 37signals uses for its petabytes of data. You can start with the local filesystem on the VPS. When you outgrow that, you can point Harbor to any S3-compatible object storage. Wasabi, Backblaze B2, or even a **self-hosted** MinIO instance on another box. And if you *are* running your own storage hardware, companies like Pure even provide OpenMetrics exporters (`pure-fb-openmetrics-exporter` for FlashBlade) so you can pipe all your storage metrics right into Prometheus.
+For storage, you don't need a massive Pure FlashBlade appliance like 37signals uses for its petabytes of data. You can start with the local filesystem on the VPS. When you outgrow that, you can point Harbor to any S3-compatible object storage. [Wasabi](https://wasabi.com/), [Backblaze B2](https://www.backblaze.com/cloud-storage), or even a **self-hosted** [MinIO](https://min.io/) instance on another box. And if you *are* running your own storage hardware, companies like Pure even provide OpenMetrics exporters (`pure-fb-openmetrics-exporter` for FlashBlade) so you can pipe all your storage metrics right into [Prometheus](https://prometheus.io/).
 
 You get faster deploys and you own the keys to your images. No more surprise bills from your cloud provider because your CI system went haywire and pushed 10,000 image layers in an hour.
 
@@ -59,15 +59,15 @@ Okay, you have a private registry. Now how do you get your app from that registr
 
 This is where everyone tells you to learn Kubernetes. They'll talk about pods, services, ingresses, and a million other abstractions. You'll spend the next six months shaving that particular yak, and you still won't have shipped your feature.
 
-You don't need Kubernetes. You need **Kamal**. 
+You don't need Kubernetes. You need [**Kamal**](https://kamal-deploy.org/).
 
-Kamal is the deploy tool 37signals built and open-sourced. It's what they use to deploy all their apps. It takes a container-based approach but without the ridiculous complexity. You give it a list of servers, and it uses standard Docker commands over SSH to get your app running. Simple. Fast. Effective.
+Kamal is the deploy tool [37signals](https://37signals.com/) built and open-sourced. It's what they use to deploy all their apps. It takes a container-based approach but without the ridiculous complexity. You give it a list of servers, and it uses standard Docker commands over SSH to get your app running. Simple. Fast. Effective.
 
-They even use it to run their new synthetic monitoring system, Upright. Upright is a Rails engine they open-sourced that lets you run checks from all over the world to make sure your app is, well, upright. It supports Playwright for full browser testing, simple HTTP pings, and even SMTP and Traceroute probes.
+They even use it to run their new synthetic monitoring system, [Upright](https://github.com/basecamp/upright). Upright is a Rails engine they open-sourced that lets you run checks from all over the world to make sure your app is, well, upright. It supports [Playwright](https://playwright.dev/) for full browser testing, simple HTTP pings, and even SMTP and Traceroute probes.
 
-And the best part? They deploy Upright's probe nodes using Kamal to cheap VPS instances around the globe. A minimal setup with two monitoring locations on Hetzner costs under $20 a month. That's a worldwide monitoring system for the price of a few fancy coffees.
+And the best part? They deploy Upright's probe nodes using Kamal to cheap VPS instances around the globe. A minimal setup with two monitoring locations on [Hetzner](https://www.hetzner.com/) costs under $20 a month. That's a worldwide monitoring system for the price of a few fancy coffees.
 
-This is the ExitCloud philosophy in action. Use simple, powerful tools to solve problems. The big S3 migration? They didn't use some complex data pipeline orchestrator. They used custom Rails tooling, Rclone (a command-line monster for cloud storage), and DuckDB for partitioning the data. Focused tools for a focused job. That's how you move 5 petabytes with no downtime. Not by building a distributed system that requires a team of 10 to maintain.
+This is the ExitCloud philosophy in action. Use simple, powerful tools to solve problems. The big S3 migration? They didn't use some complex data pipeline orchestrator. They used custom Rails tooling, [Rclone](https://rclone.org/) (a command-line monster for cloud storage), and [DuckDB](https://duckdb.org/) for partitioning the data. Focused tools for a focused job. That's how you move 5 petabytes with no downtime. Not by building a distributed system that requires a team of 10 to maintain.
 
 ### Rails Multi-Tenancy: Because Sharing is *Not* Always Caring
 
@@ -95,9 +95,9 @@ When you're self-hosting, you're responsible for uptime. The best monitoring is 
 
 You don't need to pay for Datadog. You can build a powerful observability stack with open-source tools. The 37signals Upright monitoring tool is a perfect example of this. Under the hood, it's a Rails engine that uses a stack any indie dev can manage: SQLite for the database, Solid Queue for background jobs, and a trio of observability powerhouses: Prometheus, AlertManager, and OpenTelemetry.
 
-OpenTelemetry (or OTel) is the new standard for instrumenting your code. You add its libraries to your app, and it gives you traces, metrics, and logs in a standardized format. The ecosystem is moving fast. They just had the first alpha release of eBPF instrumentation, which is a super-efficient way to get data out of the Linux kernel itself. They're also deprecating the old Zipkin exporter spec because Zipkin can now ingest OTLP directly. It's maturing.
+[OpenTelemetry](https://opentelemetry.io/) (or OTel) is the new standard for instrumenting your code. You add its libraries to your app, and it gives you traces, metrics, and logs in a standardized format. The ecosystem is moving fast. They just had the first alpha release of eBPF instrumentation, which is a super-efficient way to get data out of the Linux kernel itself. They're also deprecating the old Zipkin exporter spec because Zipkin can now ingest OTLP directly. It's maturing.
 
-Once your app is emitting OTel data, you need somewhere to send it. That's where Prometheus comes in. It's a time-series database that scrapes metrics from your app. You pair it with AlertManager to fire off alerts when things go wrong and Grafana to build pretty dashboards.
+Once your app is emitting OTel data, you need somewhere to send it. That's where [Prometheus](https://prometheus.io/) comes in. It's a time-series database that scrapes metrics from your app. You pair it with [AlertManager](https://prometheus.io/docs/alerting/latest/alertmanager/) to fire off alerts when things go wrong and [Grafana](https://grafana.com/) to build pretty dashboards.
 
 You can run this entire stack on a single VPS. You own the data. You define the alerts. You build the dashboards that make sense for *your* application.
 
