@@ -5,7 +5,6 @@ theme = 'paper'
 
 [params]
   description = 'Self-hosted deployment, AI dev workflows, and modern tooling for indie devs.'
-  twitter = 'exitcloud'
   github = 'exitcloud'
 
 [params.author]
