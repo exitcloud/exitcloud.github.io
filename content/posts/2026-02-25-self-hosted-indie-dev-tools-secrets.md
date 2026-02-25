@@ -109,6 +109,29 @@ So, that's the blueprint. Ditch the expensive cloud services that lock you in. E
 
 Ship it.
 
+## Cheat Sheet
+
+| Tool / Concept | What It Does | Link |
+|---|---|---|
+| **Harbor** | Open-source Docker registry. Run it on a VPS with `docker-compose` for faster deploys | [goharbor.io](https://goharbor.io/) |
+| **Kamal** | Zero-downtime Docker deploys over SSH from 37signals. No K8s required | [kamal-deploy.org](https://kamal-deploy.org/) |
+| **Upright** | Synthetic monitoring from 37signals. Playwright, HTTP, SMTP probes from global nodes | [github.com/basecamp/upright](https://github.com/basecamp/upright) |
+| **Rclone** | CLI tool for syncing/copying data between local and cloud storage providers | [rclone.org](https://rclone.org/) |
+| **DuckDB** | Embedded analytical database. Used by 37signals for partitioning their 5PB S3 migration | [duckdb.org](https://duckdb.org/) |
+| **MinIO** | Self-hosted S3-compatible object storage | [min.io](https://min.io/) |
+| **Wasabi** | Cheap S3-compatible cloud storage (no egress fees) | [wasabi.com](https://wasabi.com/) |
+| **Backblaze B2** | Budget cloud object storage at $6/TB/mo | [backblaze.com/cloud-storage](https://www.backblaze.com/cloud-storage) |
+| **Prometheus** | Time-series metrics database. Scrapes endpoints, stores data, powers alerts | [prometheus.io](https://prometheus.io/) |
+| **AlertManager** | Alert routing and notification for Prometheus. Fire alerts when things break | [prometheus.io/docs/alerting/latest/alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) |
+| **OpenTelemetry** | Vendor-neutral standard for traces, metrics, and logs instrumentation | [opentelemetry.io](https://opentelemetry.io/) |
+| **Grafana** | Dashboard and visualization tool. Pair with Prometheus for observability | [grafana.com](https://grafana.com/) |
+| **Active Record Tenanted** | Rails gem from 37signals for multi-tenancy with built-in data leak prevention | - |
+| **Playwright** | Browser testing framework used by Upright for synthetic monitoring checks | [playwright.dev](https://playwright.dev/) |
+| **Pure Storage FlashBlade** | On-prem S3-compatible storage hardware (what 37signals uses for petabyte-scale) | [purestorage.com](https://www.purestorage.com/products/file-and-object/flashblade.html) |
+| **Hetzner** | Budget VPS provider. Great price-to-performance for self-hosted stacks | [hetzner.com](https://www.hetzner.com/) |
+| **Let's Encrypt** | Free TLS certificates. Used by Harbor for HTTPS | [letsencrypt.org](https://letsencrypt.org/) |
+| **Docker Compose** | Define multi-container stacks in a single YAML file. Harbor ships with one | [docs.docker.com/compose](https://docs.docker.com/compose/) |
+
 ### FAQ
 
 **Q: Is self-hosting really cheaper than using cloud services?**
