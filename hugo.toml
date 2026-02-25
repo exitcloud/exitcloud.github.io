@@ -4,11 +4,26 @@ title = 'Exit Cloud'
 theme = 'paper'
 
 [params]
+  env = 'production'
   description = 'Self-hosted deployment, AI dev workflows, and modern tooling for indie devs.'
   github = 'exitcloud'
 
 [params.author]
   name = 'Exit Cloud'
+
+[params.giscus]
+  repo = 'exitcloud/exitcloud.github.io'
+  repoId = 'R_kgDORYN5zQ'
+  category = 'Announcements'
+  categoryId = 'DIC_kwDORYN5zc4C3KJs'
+  mapping = 'pathname'
+  strict = '1'
+  reactionsEnabled = '1'
+  emitMetadata = '0'
+  inputPosition = 'top'
+  theme = 'preferred_color_scheme'
+  lang = 'en'
+  loading = 'lazy'
 
 [markup.goldmark.renderer]
   unsafe = true
