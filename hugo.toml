@@ -25,5 +25,15 @@ theme = 'paper'
   lang = 'en'
   loading = 'lazy'
 
+[[menus.main]]
+  name = 'About'
+  url = '/about/'
+  weight = 10
+
+[[menus.main]]
+  name = 'Posts'
+  url = '/posts/'
+  weight = 20
+
 [markup.goldmark.renderer]
   unsafe = true
