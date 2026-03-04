@@ -23,9 +23,9 @@ Ship it.
 - Components:
   - [Harbor](https://goharbor.io/) for a self‑hosted container registry with RBAC, scanning, and signing. 37signals runs their registry on‑prem with Harbor as part of their pipeline, after external registries (Docker Hub/ECR) created cost and coupling pain during their cloud exit and “kamalization” journey ([source](https://dev.37signals.com)).
   - [Upright](https://dev.37signals.com) for synthetic monitoring — open source, runs probes from multiple geographic locations, exposes Prometheus metrics, and you can alert with [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) and visualize in [Grafana](https://grafana.com/).
-  - [DockWatch](https://hnrss.org) for a single‑container Docker health dashboard with anomaly detection and Telegram alerts. Built intentionally as a lightweight alternative to heavier stacks.
+  - DockWatch for a single‑container Docker health dashboard with anomaly detection and Telegram alerts. Built intentionally as a lightweight alternative to heavier stacks.
   - [OpenTelemetry](https://opentelemetry.io/) to standardize telemetry (metrics, traces, logs) via OTLP. The project is leaning into stability, reliability, and cleaner releases, including for traditional on‑prem setups with noisy logs and siloed tools ([stability focus](https://opentelemetry.io), [traditional envs](https://opentelemetry.io)).
-  - A terminal‑first AI workflow inspired by [Frame](https://hnrss.org) that uses wrapper scripts, shared project context, and Git‑native provenance.
+  - A terminal‑first AI workflow inspired by Frame that uses wrapper scripts, shared project context, and Git‑native provenance.
 
 If you’re picking providers, tools like [CloudPriceCheck](https://cloudpricecheck.com/) help reality‑check that you’re staying in the $5–$20 VPS ballpark rather than drifting into “yak farm” territory. Good mental guardrail.
 
@@ -127,7 +127,7 @@ receivers:
 
 Now for the host‑level view:
 
-- [DockWatch](https://hnrss.org) was built because Prometheus+Grafana or Portainer felt like overkill for “just watching a few Docker containers.” It runs as a single container and provides a real‑time dashboard covering CPU, memory, network, disk, and temperature metrics. It includes six anomaly‑detection rules with Telegram alerts, supports self‑signed HTTPS or [Cloudflare Tunnel](https://www.cloudflare.com/products/tunnel/) for remote access, and ships a single HTML file dashboard (no build step) — all on a footprint of roughly 50MB with only four Python dependencies, built on [FastAPI](https://fastapi.tiangolo.com/), [aiodocker](https://github.com/aio-libs/aiodocker), [Chart.js](https://www.chartjs.org/), and [SQLite](https://www.sqlite.org/index.html) ([source](https://hnrss.org)).
+- DockWatch was built because Prometheus+Grafana or Portainer felt like overkill for “just watching a few Docker containers.” It runs as a single container and provides a real‑time dashboard covering CPU, memory, network, disk, and temperature metrics. It includes six anomaly‑detection rules with Telegram alerts, supports self‑signed HTTPS or [Cloudflare Tunnel](https://www.cloudflare.com/products/tunnel/) for remote access, and ships a single HTML file dashboard (no build step) — all on a footprint of roughly 50MB with only four Python dependencies, built on [FastAPI](https://fastapi.tiangolo.com/), [aiodocker](https://github.com/aio-libs/aiodocker), [Chart.js](https://www.chartjs.org/), and [SQLite](https://www.sqlite.org/index.html) (source).
 
 Compose stub to run DockWatch (replace image and env variables per the project docs):
 ```
@@ -227,7 +227,7 @@ And yes, OTel is for old‑school environments too. The maintainers call out on�
 
 AI tools work best when they live where your code lives. Windows and panes, not a separate tab farm.
 
-- [Frame](https://hnrss.org) started as a terminal‑first lightweight IDE and is evolving into a platform for larger projects with AI agents. It gives you up to 9 terminals in a 3×3 grid, can host multiple AI tools (Claude Code, Codex CLI, Gemini CLI) in one window, and uses wrapper scripts for automatic context injection when integrating non‑native tools. It also promotes a standardized project structure with files like AGENTS.md, STRUCTURE.json, and PROJECT_NOTES.md ([source](https://hnrss.org)).
+- Frame started as a terminal‑first lightweight IDE and is evolving into a platform for larger projects with AI agents. It gives you up to 9 terminals in a 3×3 grid, can host multiple AI tools (Claude Code, Codex CLI, Gemini CLI) in one window, and uses wrapper scripts for automatic context injection when integrating non‑native tools. It also promotes a standardized project structure with files like AGENTS.md, STRUCTURE.json, and PROJECT_NOTES.md (source).
 
 You can recreate most of that with [tmux](https://github.com/tmux/tmux/wiki) and a couple scripts.
 
@@ -281,20 +281,20 @@ Git‑native provenance for AI decisions
 - [RTS](https://github.com/nobutakayamauchi/RTS) proposes a Git‑native execution provenance protocol for AI decisions. Use it as a mental model: store model inputs/outputs alongside code so reviewers can audit what an agent did. Even a simple “.rts/” directory with request/response JSONs committed on a branch helps.
 
 Turn PR comments into prompts
-- The [PR Comment Prompter](https://hnrss.org) Chrome extension adds a “Copy Prompt” button to each GitHub PR comment and lets you customize the prompt template. Handy to funnel review threads into structured prompts for your AI CLI.
+- The PR Comment Prompter Chrome extension adds a “Copy Prompt” button to each GitHub PR comment and lets you customize the prompt template. Handy to funnel review threads into structured prompts for your AI CLI.
 
 Agent email without giving away your inbox
-- [TheAgentMail](https://hnrss.org) provides an email API for AI agents. With a single API call an agent can create a real address on the shared @theagentmail.net domain. It was designed to avoid security risks of giving agents access to personal inboxes and the overhead of buying/configuring domains, and it focuses on preventing spam via a karma‑based system with no manual review ([source](https://hnrss.org)).
+- TheAgentMail provides an email API for AI agents. With a single API call an agent can create a real address on the shared @theagentmail.net domain. It was designed to avoid security risks of giving agents access to personal inboxes and the overhead of buying/configuring domains, and it focuses on preventing spam via a karma‑based system with no manual review (source).
 
 Monitoring how models talk about your product
 - [Geostorm.ai](https://geostorm.ai) monitors multiple AI models (for example, ChatGPT, Claude, Gemini via [OpenRouter](https://openrouter.ai/)) on a schedule to see what they say about your software or topics. You define search terms (like “best Python async framework”), it parses responses and tracks results over time ([source](https://geostorm.ai)). Nice “outside view” telemetry.
 
 Architecting AI‑native tools
-- [MCP Fusion](https://hnrss.org) frames AI‑native MCP servers with an MVA (Model‑View‑Agent) pattern and a deterministic View layer. Useful lens for anything that lets an agent touch real tools like `kamal deploy` or `docker tag`. Make the “View” deterministic and auditable.
+- MCP Fusion frames AI‑native MCP servers with an MVA (Model‑View‑Agent) pattern and a deterministic View layer. Useful lens for anything that lets an agent touch real tools like `kamal deploy` or `docker tag`. Make the “View” deterministic and auditable.
 
 Curious corners
-- [Autolang](https://hnrss.org) is an embedded language/VM in C++ tuned for high‑frequency, short‑lived tasks like agent loops. Target ~2ms startup, arena‑restart memory model (~2x faster allocation than Lua), and can compile 100k classes in ~888ms ([source](https://hnrss.org)). If you’re experimenting with tight agent loops, it’s an interesting direction.
-- [Zagora](https://hnrss.org) stitches mixed GPUs over standard 1Gbps internet into a fine‑tuning cluster using pipeline‑style parallelism (passing boundary activations, assigning layers across nodes). It avoids heavy tensor synchronization assumptions that break over heterogeneous fleets ([source](https://hnrss.org)). Not for your indie box today — but good to know it exists.
+- Autolang is an embedded language/VM in C++ tuned for high‑frequency, short‑lived tasks like agent loops. Target ~2ms startup, arena‑restart memory model (~2x faster allocation than Lua), and can compile 100k classes in ~888ms (source). If you’re experimenting with tight agent loops, it’s an interesting direction.
+- Zagora stitches mixed GPUs over standard 1Gbps internet into a fine‑tuning cluster using pipeline‑style parallelism (passing boundary activations, assigning layers across nodes). It avoids heavy tensor synchronization assumptions that break over heterogeneous fleets (source). Not for your indie box today — but good to know it exists.
 
 ---
 
@@ -329,7 +329,7 @@ Wild stuff.
 - Harbor — Open‑source container registry with RBAC, scanning, and signing: https://goharbor.io/ (context: [CNCF](https://cncf.io), [37signals using Harbor](https://dev.37signals.com))
 - Kamal — Deploy Dockerized apps to your own servers: https://kamal-deploy.org/ (mentioned by 37signals [here](https://dev.37signals.com))
 - Upright — Open‑source synthetic monitoring (multi‑geo checks, Prometheus metrics, Alertmanager/Grafana): https://dev.37signals.com
-- DockWatch — Lightweight Docker monitoring (single container, real‑time dashboard, anomaly rules, Telegram alerts): https://hnrss.org
+- DockWatch — Lightweight Docker monitoring (single container, real‑time dashboard, anomaly rules, Telegram alerts): (source link unavailable)
 - Prometheus — Metrics store and alerting (with Alertmanager): https://prometheus.io/
 - Alertmanager — Routing/aggregation for alerts: https://prometheus.io/docs/alerting/latest/alertmanager/
 - Grafana — Dashboards and visualizations: https://grafana.com/
@@ -340,13 +340,13 @@ Wild stuff.
 - Zipkin exporter deprecation — Prefer OTLP: https://opentelemetry.io
 - Traditional env guidance — OTel for on‑prem/legacy/noisy logs: https://opentelemetry.io
 - KubeCon talk — OTel at 20K+ cluster scale: https://opentelemetry.io
-- Frame — Terminal‑first AI dev platform (3×3 terminals, multi‑AI CLIs, wrapper scripts, standard files): https://hnrss.org
-- PR Comment Prompter — Chrome extension for copy‑prompt buttons on GitHub PR comments: https://hnrss.org
-- TheAgentMail — Email API for AI agents on @theagentmail.net (karma‑based spam prevention): https://hnrss.org
+- Frame — Terminal‑first AI dev platform (3×3 terminals, multi‑AI CLIs, wrapper scripts, standard files): (source link unavailable)
+- PR Comment Prompter — Chrome extension for copy‑prompt buttons on GitHub PR comments: (source link unavailable)
+- TheAgentMail — Email API for AI agents on @theagentmail.net (karma‑based spam prevention): (source link unavailable)
 - Geostorm.ai — Monitor what AI chatbots say about your software over time via OpenRouter: https://geostorm.ai
-- MCP Fusion — Framework for AI‑native MCP servers; MVA (Model‑View‑Agent) pattern: https://hnrss.org
-- Autolang — Embedded C++ VM for high‑frequency, short‑lived tasks (target ~2ms startup): https://hnrss.org
-- Zagora — Distributed fine‑tuning on mixed GPUs over standard internet (pipeline‑style parallelism): https://hnrss.org
+- MCP Fusion — Framework for AI‑native MCP servers; MVA (Model‑View‑Agent) pattern: (source link unavailable)
+- Autolang — Embedded C++ VM for high‑frequency, short‑lived tasks (target ~2ms startup): (source link unavailable)
+- Zagora — Distributed fine‑tuning on mixed GPUs over standard internet (pipeline‑style parallelism): (source link unavailable)
 - Active Record Tenanted — Rails multi‑tenancy with separate databases, data‑leak safeguards: https://dev.37signals.com
 - Lexxy — Rich text editor for Rails Action Text, based on Lexical: https://dev.37signals.com
 - Hotwire Native 1.2 — Web‑first native apps; route decision handlers; new demos: https://dev.37signals.com

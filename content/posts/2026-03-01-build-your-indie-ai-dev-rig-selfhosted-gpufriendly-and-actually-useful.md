@@ -11,7 +11,7 @@ tags:
 
 Here’s the thing — most posts hand-wave “then deploy it.” I learned this the hard way. You don’t need Kubernetes. You need a VPS and a Makefile.
 
-This walkthrough gives you a lean, real-world stack: a three‑phase AI pipeline that mixes a cloud LLM planner with local executors on your GPU, then a cloud synthesizer. We’ll bolt on persistent agent memory via [Engram](https://hnrss.org), wire a self‑hosted Telegram voice‑memo bot using [AssemblyAI](https://www.assemblyai.com/) and the [Claude Agent SDK](https://www.anthropic.com/claude) tools (Read/Glob/Grep), and take security seriously with [SkillFortify](https://hnrss.org). We’ll keep compute on-device where it makes sense — that’s the direction tools like [Papercut](https://hnrss.org) and the on-device [React Native element inspector](https://github.com/mabdinasira/react-native-element-inspector) are already going.
+This walkthrough gives you a lean, real-world stack: a three‑phase AI pipeline that mixes a cloud LLM planner with local executors on your GPU, then a cloud synthesizer. We’ll bolt on persistent agent memory via Engram, wire a self‑hosted Telegram voice‑memo bot using [AssemblyAI](https://www.assemblyai.com/) and the [Claude Agent SDK](https://www.anthropic.com/claude) tools (Read/Glob/Grep), and take security seriously with SkillFortify. We’ll keep compute on-device where it makes sense — that’s the direction tools like Papercut and the on-device [React Native element inspector](https://github.com/mabdinasira/react-native-element-inspector) are already going.
 
 Let me show you what actually works.
 
@@ -20,10 +20,10 @@ Let me show you what actually works.
 At a high level:
 
 - The planner/executor/synthesizer pattern. Inspired by a Windows desktop orchestrator that uses [PyQt6](https://pypi.org/project/PyQt6/), [FastAPI](https://fastapi.tiangolo.com/), and [React](https://react.dev/): Phase 1, a cloud LLM (Claude/GPT/Gemini) decomposes a prompt into sub‑tasks; Phase 2, local [Ollama](https://ollama.com/) models on your GPU run each sub‑task; Phase 3, a cloud LLM integrates those results. The motivation: cloud APIs are great at reasoning and structure but cost money, while local Ollama is free but sometimes inconsistent — so use each where it’s strongest.
-- Persistent memory for coding agents. [Engram](https://hnrss.org) runs as a native MCP server with a SQLite backend, installs with a single command, and requires no infrastructure. It gives you explicit, implicit, and synthesized memory tiers for tools like Claude Code and Cursor, so you stop re‑explaining architecture every session.
+- Persistent memory for coding agents. Engram runs as a native MCP server with a SQLite backend, installs with a single command, and requires no infrastructure. It gives you explicit, implicit, and synthesized memory tiers for tools like Claude Code and Cursor, so you stop re‑explaining architecture every session.
 - A self‑hosted Telegram intake for audio. The reference flow uses [AssemblyAI](https://www.assemblyai.com/) to transcribe voice memos (speaker labels, any language) and the [Claude Agent SDK](https://www.anthropic.com/claude) tools — Read, Glob, Grep — so a query like “what did my manager say about the deadline?” spins up an agent that browses stored transcripts and answers. It’s self‑hosted.
-- Security and testing baked in. [SkillFortify](https://hnrss.org) v0.3 supports 22 agent frameworks and can scan an entire system with zero configuration. The author cites the 2026 ClawHavoc campaign that planted 1,200 malicious skills, including CVE‑2026‑25253 (first RCE in agent software), and researchers catalogued over 6,000 malicious agent tools. That’s not an abstract concern.
-- On‑device trend. [Papercut](https://hnrss.org) runs its summaries on‑device using Apple Foundation Models. The [React Native on-device element inspector](https://github.com/mabdinasira/react-native-element-inspector) runs directly on device. Our rig will follow that ethos with local Ollama and SQLite.
+- Security and testing baked in. SkillFortify v0.3 supports 22 agent frameworks and can scan an entire system with zero configuration. The author cites the 2026 ClawHavoc campaign that planted 1,200 malicious skills, including CVE‑2026‑25253 (first RCE in agent software), and researchers catalogued over 6,000 malicious agent tools. That’s not an abstract concern.
+- On‑device trend. Papercut runs its summaries on‑device using Apple Foundation Models. The [React Native on-device element inspector](https://github.com/mabdinasira/react-native-element-inspector) runs directly on device. Our rig will follow that ethos with local Ollama and SQLite.
 
 Ship it.
 
@@ -174,11 +174,11 @@ Two quick notes:
 - You can build full apps around open models too. There’s an open‑source Dungeons & Dragons app built with Python and Llama 3.1 at [DM‑Copilot-App](https://github.com/Cmccombs01/DM-Copilot-App). Different domain, same point — basic pipelines don’t need a mega‑stack.
 - If you prefer extremely lean backends, [Nile](https://nile-js.github.io/nile/) is a POST‑only framework you can swap in for tiny APIs.
 
-Here’s my contrarian take: if your “indie” AI stack can’t run on one VPS with SQLite, it’s not indie‑friendly — it’s just underfunded enterprise. Tools like [Papercut](https://hnrss.org) (on‑device Apple Foundation Models), [Engram](https://hnrss.org) (MCP + SQLite + single‑command install), and a self‑hosted Telegram bot prove you can run serious workflows on one box plus a Makefile. Not even close.
+Here’s my contrarian take: if your “indie” AI stack can’t run on one VPS with SQLite, it’s not indie‑friendly — it’s just underfunded enterprise. Tools like Papercut (on‑device Apple Foundation Models), Engram (MCP + SQLite + single‑command install), and a self‑hosted Telegram bot prove you can run serious workflows on one box plus a Makefile. Not even close.
 
 ## Step 2 – Give Your Coding Agents a Memory (Engram MCP Server)
 
-Every coding session in an AI editor starts from zero. You re‑explain architecture, conventions, and yesterday’s decisions. [Engram](https://hnrss.org) targets that exact pain. It runs as a native MCP server with a SQLite backend, installs with a single command, and requires no infrastructure.
+Every coding session in an AI editor starts from zero. You re‑explain architecture, conventions, and yesterday’s decisions. Engram targets that exact pain. It runs as a native MCP server with a SQLite backend, installs with a single command, and requires no infrastructure.
 
 What you get:
 
@@ -201,7 +201,7 @@ Treat this like any other dependency. Write a couple of checks to ensure your me
 
 You don’t need 868 tests. That said, [JamCrew](https://jamcrew.io) — a pre‑revenue SaaS — reports 868 tests and 91% coverage. That’s a mindset. Testing isn’t a luxury even when you’re solo.
 
-UNIQUE INSIGHT: there’s a quiet convergence happening — on‑device, SQLite, no‑ops installs. [Papercut](https://hnrss.org) runs summaries on‑device. The [React Native inspector](https://github.com/mabdinasira/react-native-element-inspector) runs on device. [Engram](https://hnrss.org) uses SQLite and installs with a single command. Your three‑phase pipeline uses local models. The network becomes coordination, not your primary compute path.
+UNIQUE INSIGHT: there’s a quiet convergence happening — on‑device, SQLite, no‑ops installs. Papercut runs summaries on‑device. The [React Native inspector](https://github.com/mabdinasira/react-native-element-inspector) runs on device. Engram uses SQLite and installs with a single command. Your three‑phase pipeline uses local models. The network becomes coordination, not your primary compute path.
 
 ## Step 3 – Turn Voice Memos into a Private Knowledge Bot (Self‑Hosted Telegram + Agents)
 
@@ -301,11 +301,11 @@ Extensions?
 
 ## Step 4 – Secure and Test Your Agents Like They’re Production Code
 
-Here’s the part too many folks skip. The ClawHavoc campaign (January 2026) planted 1,200 malicious skills into agent marketplaces, including CVE‑2026‑25253, described as the first remote code execution in agent software. Researchers catalogued over 6,000 malicious agent tools. Wild stuff. Source? The [SkillFortify post](https://hnrss.org).
+Here’s the part too many folks skip. The ClawHavoc campaign (January 2026) planted 1,200 malicious skills into agent marketplaces, including CVE‑2026‑25253, described as the first remote code execution in agent software. Researchers catalogued over 6,000 malicious agent tools. Wild stuff. Source? The SkillFortify post.
 
 The industry reacted with heuristic scanners — pattern matching, YARA rules, LLM‑as‑judge — and one popular scanner even warned in its docs that “No findings does not mean no ris…”. That’s not confidence‑inspiring.
 
-[SkillFortify](https://hnrss.org) takes a different tack: formal verification for AI agents. Version 0.3 supports 22 agent frameworks and can scan an entire system with zero configuration. The workflow looks like this in practice:
+SkillFortify takes a different tack: formal verification for AI agents. Version 0.3 supports 22 agent frameworks and can scan an entire system with zero configuration. The workflow looks like this in practice:
 
 - Run a system‑wide scan to auto‑discover agent frameworks on your box (think editors with MCP servers, bots, CLI agents).
 - Review the findings for anything sketchy before you install new skills or tools.
@@ -329,7 +329,7 @@ Adopt a JamCrew mindset here too. [JamCrew](https://jamcrew.io) reports 868 test
 You don’t need a Rube Goldberg platform to ship this.
 
 - Pick GPUs thoughtfully. [Gpu.fund](https://gpu.fund/) tracks GPU rental prices across Vast.ai, RunPod, AWS, GCP, and more. Use it to decide whether you run local executors on your laptop or rent a small instance.
-- Prefer on‑device. [Papercut](https://hnrss.org) runs summaries on‑device using Apple Foundation Models. The [React Native element inspector](https://github.com/mabdinasira/react-native-element-inspector) is on-device too. Our rig mirrors that — local Ollama executors, SQLite stores, and a thin HTTP service.
+- Prefer on‑device. Papercut runs summaries on‑device using Apple Foundation Models. The [React Native element inspector](https://github.com/mabdinasira/react-native-element-inspector) is on-device too. Our rig mirrors that — local Ollama executors, SQLite stores, and a thin HTTP service.
 - Keep the backend tiny. A single [FastAPI](https://fastapi.tiangolo.com/) app or a [Nile](https://nile-js.github.io/nile/) POST‑only endpoint behind a reverse proxy on a small VPS can serve both your three‑phase pipeline and Telegram webhooks in one process. No multi‑service sprawl required.
 - Embrace no‑backend when it works. The HN userscript that displays account age and karma runs with [Tampermonkey](https://www.tampermonkey.net/) on [Firefox](https://www.mozilla.org/firefox/) and injects the info inline next to usernames so you don’t have to click profiles ([source](https://news.ycombinator.com/item?id=47203804)). Sometimes logic belongs entirely in the user’s environment.
 - Explore agent templates you can actually ship now. The [Agentic Workflows](https://github.com/OneRose328/awesome-agentic-workflows) repo lists 56 ready‑to‑use templates. Before, these often lacked deployment recipes; with the patterns above, you can stand them up on your own infra.
@@ -342,14 +342,14 @@ Minimalism isn’t an aesthetic. It’s fewer footguns.
 - [React](https://react.dev/) — UI layer; optional simple web client to visualize plan vs local runs.
 - [Ollama](https://ollama.com/) — local models on your GPU; Phase 2 executors.
 - [Gpu.fund](https://gpu.fund/) — tracks GPU rental prices across Vast.ai, RunPod, AWS, GCP, and others.
-- [Engram](https://hnrss.org) — native MCP server with SQLite backend; single‑command install; explicit/implicit/synthesized memory for coding agents.
+- Engram — native MCP server with SQLite backend; single‑command install; explicit/implicit/synthesized memory for coding agents.
 - [AssemblyAI](https://www.assemblyai.com/) — transcription API (speaker labels, any language) for voice memos.
 - [Claude Agent SDK](https://www.anthropic.com/claude) — agent tools (Read/Glob/Grep) used to browse and answer over transcript files.
 - [Openpista](https://github.com/openpista/openpista) — Rust agent for OS control via Telegram/CLI; inspiration for system actions.
 - [Distill](https://getdistill.tech/landing) — “analyze employee survey data in 60 seconds” UX inspiration for quick bulk‑text analysis flows.
-- [SkillFortify](https://hnrss.org) — formal verification for AI agents; v0.3 supports 22 frameworks; zero‑config system‑wide scan.
+- SkillFortify — formal verification for AI agents; v0.3 supports 22 frameworks; zero‑config system‑wide scan.
 - [Iosef](https://github.com/mabdinasira/react-native-element-inspector) — note: this link is the RN inspector; Iosef is an iOS simulator CLI for agents with directory‑level sessions, screenshot scaling, selector interactions, and MCP skills.
-- [Papercut](https://hnrss.org) — tracks arXiv topics; on‑device AI summaries using Apple Foundation Models; TL;DR, math breakdown, ELI5, methodology chips.
+- Papercut — tracks arXiv topics; on‑device AI summaries using Apple Foundation Models; TL;DR, math breakdown, ELI5, methodology chips.
 - [React Native Element Inspector](https://github.com/mabdinasira/react-native-element-inspector) — on‑device element inspector for React Native apps.
 - [DM‑Copilot-App](https://github.com/Cmccombs01/DM-Copilot-App) — open‑source D&D app using Python + Llama 3.1; proves simple pipelines can deliver value.
 - [Nile](https://nile-js.github.io/nile/) — POST‑only backend framework; lean alternative to complex servers.
